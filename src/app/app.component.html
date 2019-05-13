@@ -5,6 +5,7 @@
   </h1>
 </div>
 
+<section>
 <mat-form-field>
   <input matInput [matDatepicker]="picker" placeholder="Choose a date"
          (dateInput)="addEvent('input', $event)">
@@ -29,5 +30,6 @@
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()"
   ></div>
+</section>
 
 <router-outlet></router-outlet>
