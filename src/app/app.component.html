@@ -5,31 +5,4 @@
   </h1>
 </div>
 
-<section>
-<mat-form-field>
-  <input matInput [matDatepicker]="picker" placeholder="Choose a date"
-         (dateInput)="addEvent('input', $event)">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-
-<mat-grid-list cols="3" rowHeight="1:1">
-  <mat-grid-tile *ngFor="let image of images;">
-    <a href="/{{ image }}" target="_blank">
-      <img src="/{{ image }}?w=320&h=240" >
-    </a>
-    <mat-grid-tile-footer>{{ image }}</mat-grid-tile-footer>
-  </mat-grid-tile>
-  
-</mat-grid-list>
-  
-<div
-  class="search-results"
-  infiniteScroll
-  [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="50"
-  (scrolled)="onScroll()"
-  ></div>
-</section>
-
 <router-outlet></router-outlet>

@@ -10,12 +10,17 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatListModule, MatNativeDateModule, MatInputModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { PreviewComponent } from './preview/preview.component';
+import { SingleComponent } from './single/single.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    PreviewComponent,
+    SingleComponent,
   ],
   imports: [
     BrowserModule,
