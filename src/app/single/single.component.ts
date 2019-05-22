@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Location } from '@angular/common';
 //import { PhotosService } from '../photos.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class SingleComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private _location: Location
     //private photosService: PhotosService
   ) { }
 
@@ -20,6 +22,11 @@ export class SingleComponent implements OnInit {
     this.filename = this.route.snapshot.paramMap.get('filename');
     console.log(this.filename);
     //const params = {page: this.page, date: this.date};
+  }
+
+  backClicked() {
+    console.log('back');
+    this._location.back();
   }
 
   //getImages(params) {

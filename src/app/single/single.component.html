@@ -1,2 +1,4 @@
-<button routerLink="/preview" mat-button>Click me!</button>
+<button (click)="backClicked()" mat-button>Back</button>
+{{ filename | imagename }}
+<br>
 <img src="/{{ filename }}" >
