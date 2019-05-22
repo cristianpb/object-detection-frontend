@@ -9,6 +9,12 @@ export class PhotosService {
 
   constructor(private http: HttpClient) { }
 
+  deleteImage(img) {
+    const formData: FormData = new FormData();
+    formData.append('filename', img);
+    return this.http.post(`${environment.api}/delete`, formData);
+  }
+
   getPhotos(params) {
     let query = '';
     if ('page' in params) {

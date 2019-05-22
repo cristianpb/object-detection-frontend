@@ -39,6 +39,14 @@ export class PreviewComponent implements OnInit {
     });
   }
 
+  deleteImage(img) {
+    console.log(img);
+    this.photosService.deleteImage(img).subscribe(result => {
+      this.images.splice(this.images.indexOf(img), 1 ); 
+      console.log(result);
+    })
+  }
+
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
     this.images = [];

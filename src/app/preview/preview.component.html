@@ -10,6 +10,8 @@
 
 <mat-grid-list cols="3" rowHeight="1:1">
   <mat-grid-tile *ngFor="let image of images;">
+    <mat-grid-tile-header><button (click)="deleteImage(image)" mat-button>Delete</button>
+    </mat-grid-tile-header>
     <a [routerLink]="['/single', image ]">
       <img src="/{{ image }}?w=320&h=240" >
     </a>
