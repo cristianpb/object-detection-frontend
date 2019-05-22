@@ -13,7 +13,7 @@
     <a [routerLink]="['/single', image ]">
       <img src="/{{ image }}?w=320&h=240" >
     </a>
-    <mat-grid-tile-footer>{{ image }}</mat-grid-tile-footer>
+    <mat-grid-tile-footer>{{ image | imagename }}</mat-grid-tile-footer>
   </mat-grid-tile>
   
 </mat-grid-list>

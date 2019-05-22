@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PreviewComponent } from './preview/preview.component';
 import { SingleComponent } from './single/single.component';
+import { ImagenamePipe } from './imagename.pipe';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { SingleComponent } from './single/single.component';
     AppComponent,
     PreviewComponent,
     SingleComponent,
+    ImagenamePipe,
   ],
   imports: [
     BrowserModule,
