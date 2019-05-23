@@ -21,7 +21,7 @@ export class PhotosService {
       query += `page=${params.page}`;
     }
     if (('date' in params) && (params.date !== undefined)) {
-      query += `&date=${params.date.toISOString().slice(0, 10).replace(/-/g, '')}`; }
+      query += `&date=${new Intl.DateTimeFormat('fr-FR').format(params.date)}`; }
     return this.http.get<string[]>(`${environment.api}/images?${query}`);
   }
 }

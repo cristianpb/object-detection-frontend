@@ -17,7 +17,8 @@ export class PreviewComponent implements OnInit {
 
   ngOnInit() {
     this.page = 0;
-    this.getImages({page: this.page});
+    const params = {page: this.page, date: this.date};
+    this.getImages(params);
     console.log('Today', this.date);
   }
 
@@ -55,9 +56,6 @@ export class PreviewComponent implements OnInit {
     const params = {page: this.page, date: this.date};
     this.getImages(params);
     console.log(event.value);
-    console.log(event.value.getDay());
-    console.log(event.value.getMonth());
-    console.log(event.value.getDate());
   }
 
 }

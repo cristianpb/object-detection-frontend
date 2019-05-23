@@ -7,7 +7,7 @@ export class ImagenamePipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
     const mylist = value.split("/")
-    const name;
+    let name;
     if (mylist.length === 4) {
       const [parentFolder, deviceFolder, dateYear, filename] = mylist;
       const [hourMinute, detection, extension] = filename.split("_");
