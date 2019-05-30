@@ -12,7 +12,7 @@ export class PhotosService {
   deleteImage(img) {
     const formData: FormData = new FormData();
     formData.append('filename', img);
-    return this.http.post(`${environment.api}/delete`, formData);
+    return this.http.post(`/api/delete`, formData);
   }
 
   getPhotos(params) {
@@ -22,6 +22,6 @@ export class PhotosService {
     }
     if (('date' in params) && (params.date !== undefined)) {
       query += `&date=${new Intl.DateTimeFormat('fr-FR').format(params.date)}`; }
-    return this.http.get<string[]>(`${environment.api}/images?${query}`);
+    return this.http.get<string[]>(`/api/images?${query}`);
   }
 }
