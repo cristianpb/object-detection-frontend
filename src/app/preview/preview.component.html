@@ -12,7 +12,7 @@
   <mat-grid-tile *ngFor="let image of images;">
     <mat-grid-tile-header><button (click)="deleteImage(image)" mat-button>Delete</button>
     </mat-grid-tile-header>
-    <a [routerLink]="['/single', image ]">
+    <a (click)="openDialog(image)">
       <img src="/{{ image }}?w=320&h=240" >
     </a>
     <mat-grid-tile-footer>{{ image | imagename }}</mat-grid-tile-footer>

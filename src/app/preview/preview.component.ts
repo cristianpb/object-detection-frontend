@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker'; 
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { PhotosService } from '../photos.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SingleComponent } from '../single/single.component';
 
 @Component({
   selector: 'app-preview',
@@ -13,7 +15,16 @@ export class PreviewComponent implements OnInit {
   page: number;
   date: Date;
 
-  constructor(private photosService: PhotosService) { }
+  constructor(private photosService: PhotosService, public dialog: MatDialog) { }
+
+  openDialog(image) {
+    const dialogRef = this.dialog.open(SingleComponent, {
+      data: { filename: image },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 
   ngOnInit() {
     this.page = 0;
@@ -43,9 +54,9 @@ export class PreviewComponent implements OnInit {
   deleteImage(img) {
     console.log(img);
     this.photosService.deleteImage(img).subscribe(result => {
-      this.images.splice(this.images.indexOf(img), 1 ); 
+      this.images.splice(this.images.indexOf(img), 1 );
       console.log(result);
-    })
+    });
   }
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
