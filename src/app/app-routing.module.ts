@@ -4,8 +4,8 @@ import { PreviewComponent } from './preview/preview.component';
 import { SingleComponent } from './single/single.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/preview', pathMatch: 'full' },
-  { path: 'preview', component: PreviewComponent },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', component: PreviewComponent },
   { path: 'single/:filename', component: SingleComponent },
   { path: '**', component: PreviewComponent }
 ];
