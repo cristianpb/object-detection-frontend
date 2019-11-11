@@ -1,23 +1,46 @@
-<section>
-<mat-form-field>
-  <input matInput [matDatepicker]="picker" placeholder="Choose a date"
-         (dateInput)="addEvent('input', $event)">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-</section>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h1>Object detection</h1>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <button mat-button>
+      <mat-slide-toggle (click)="toggleCam()">Cam</mat-slide-toggle>
+    </button>
 
+    <!-- This fills the remaining space of the current row -->
+    <span class="example-fill-remaining-space"></span>
 
-<mat-grid-list cols="3" rowHeight="1:1">
+    <button mat-button>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose date"
+                                                 (dateInput)="addEvent('input', $event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div *ngIf="(singleImage) && (showCam)">
+  <mat-grid-list cols="3" rowHeight="{{ singleImage.height }}">
+  <mat-grid-tile [colspan]="2">
+      <img [src]="singleImage.img | imageDecode" width="{{ singleImage.width }}" height="{{ singleImage.height }}">
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <input matInput type="number" placeholder="Frame per seconds" [value]="fps" (input)="fps = $event.target.value">
+  </mat-grid-tile>
+</mat-grid-list>
+</div>
+
+<mat-grid-list cols="3" rowHeight="240">
   <mat-grid-tile *ngFor="let image of images;">
     <mat-grid-tile-header><button (click)="deleteImage(image)" mat-button>Delete</button>
     </mat-grid-tile-header>
     <a (click)="openDialog(image)">
-      <img src="/{{ image }}?w=320&h=240" >
+      <img src="/{{ image }}?w=320&h=240" width="320" height="240">
     </a>
     <mat-grid-tile-footer>{{ image | imagename }}</mat-grid-tile-footer>
   </mat-grid-tile>
-  
 </mat-grid-list>
   
 <div

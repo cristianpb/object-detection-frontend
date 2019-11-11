@@ -11,10 +11,14 @@ import { MatListModule, MatNativeDateModule, MatInputModule } from '@angular/mat
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PreviewComponent } from './preview/preview.component';
 import { SingleComponent } from './single/single.component';
 import { ImagenamePipe } from './imagename.pipe';
+import { ImageDecodePipe } from './image-decode.pipe';
 
 
 @NgModule({
@@ -23,6 +27,7 @@ import { ImagenamePipe } from './imagename.pipe';
     PreviewComponent,
     SingleComponent,
     ImagenamePipe,
+    ImageDecodePipe,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +40,9 @@ import { ImagenamePipe } from './imagename.pipe';
     MatNativeDateModule,
     MatInputModule,
     MatFormFieldModule,
+    MatToolbarModule,
+    MatSlideToggleModule,
+    MatButtonModule,
     MatGridListModule,
     InfiniteScrollModule
   ],
