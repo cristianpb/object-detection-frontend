@@ -15,8 +15,12 @@ export class PhotosService {
     return this.http.post(`/api/delete`, formData);
   }
 
-  getSingleImage() {
-    return this.http.get<any>(`/api/single_image`);
+  getSingleImage(detection=false) {
+    let query = '';
+    if (detection) {
+      query += `detection=True`;
+    }
+    return this.http.get<any>(`/api/single_image?${query}`);
   }
 
   getPhotos(params) {

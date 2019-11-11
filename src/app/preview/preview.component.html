@@ -27,7 +27,13 @@
       <img [src]="singleImage.img | imageDecode" width="{{ singleImage.width }}" height="{{ singleImage.height }}">
   </mat-grid-tile>
   <mat-grid-tile>
-    <input matInput type="number" placeholder="Frame per seconds" [value]="fps" (input)="fps = $event.target.value">
+    <mat-list>
+      <mat-list-item> Frames per second </mat-list-item>
+      <mat-list-item> <input matInput cdkTextareaAutosize type="number" placeholder="Frame per seconds" [value]="fps" (input)="fps = $event.target.value"> </mat-list-item>
+      <mat-list-item>
+        <mat-slide-toggle [checked]="detection" (input)="detection = $event.target.checked">Detection</mat-slide-toggle>
+      </mat-list-item>
+    </mat-list>
   </mat-grid-tile>
 </mat-grid-list>
 </div>

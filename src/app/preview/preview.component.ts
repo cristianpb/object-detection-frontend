@@ -17,6 +17,7 @@ export class PreviewComponent implements OnInit {
   timer;
   showCam: boolean;
   fps: number;
+  detection: boolean;
   singleImage: any;
 
   constructor(private photosService: PhotosService, public dialog: MatDialog) { }
@@ -33,6 +34,7 @@ export class PreviewComponent implements OnInit {
   ngOnInit() {
     this.page = 0;
     this.fps = 3;
+    this.detection = false;
     const params = {page: this.page, date: this.date};
     this.getImages(params);
     console.log('Today', this.date);
@@ -43,20 +45,21 @@ export class PreviewComponent implements OnInit {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
-  getSingleImage() {
-    this.photosService.getSingleImage().subscribe(data => {
+  getSingleImage(detection=false) {
+    this.photosService.getSingleImage(detection).subscribe(data => {
       this.singleImage = data
     });
   }
 
-  toggleCam() {
+  toggleCam(detection=false) {
+    console.log(this.detection);
     if (this.showCam === true) {
       this.showCam = false;
       clearInterval(this.timer);
     } else {
       this.showCam = true;
       this.timer = setInterval(() => {
-        this.getSingleImage()
+        this.getSingleImage(this.detection)
       }, Math.floor(1000/this.fps));
     }
   }
