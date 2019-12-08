@@ -10,6 +10,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatListModule, MatNativeDateModule, MatInputModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTableModule } from '@angular/material/table'; 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -37,6 +38,7 @@ import { ImageDecodePipe } from './image-decode.pipe';
     LayoutModule,
     MatListModule,
     MatDatepickerModule,
+    MatTableModule,
     MatNativeDateModule,
     MatInputModule,
     MatFormFieldModule,

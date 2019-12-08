@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { PhotosService } from '../photos.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTable } from '@angular/material';
 import { SingleComponent } from '../single/single.component';
 
 @Component({
@@ -12,13 +13,23 @@ import { SingleComponent } from '../single/single.component';
 export class PreviewComponent implements OnInit {
   events: string[] = [];
   images: string[] = [];
+  tableWorkers: object[] = [];
+  tableTasks: object[] = [];
   page: number;
   date: Date;
   timer;
   showCam: boolean;
+  showWorkersInfo: boolean;
   fps: number;
   detection: boolean;
   singleImage: any;
+  displayedColumns: string[] = ['workerValue', 'taskName', 'schedule', 'totalTasks'];
+  displayedColumnsTasks: string[] = ['uuid', 'state', 'runtime', 'started'];
+
+  @ViewChild(MatTable) table: MatTable<any>;
+
+  @ViewChild('tableTasksRef') tableT: MatTable<any>;
+  //@ViewChild(MatTable) tableW: MatTable<any>;
 
   constructor(private photosService: PhotosService, public dialog: MatDialog) { }
 
@@ -37,12 +48,47 @@ export class PreviewComponent implements OnInit {
     this.detection = false;
     const params = {page: this.page, date: this.date};
     this.getImages(params);
-    console.log('Today', this.date);
-    this.getSingleImage()
   }
 
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+  toggleWorkersInfo() {
+    console.log(this.showWorkersInfo);
+    this.showWorkersInfo = !this.showWorkersInfo;
+    if (this.showWorkersInfo === true) {
+      this.tableWorkers = [];
+      this.tableTasks = [];
+      this.getWorkers();
+      this.getTasks();
+    }
+  }
+
+  getTasks() {
+    this.photosService.getFlowerTasks().subscribe(data => {
+      Object.entries(data).forEach(([key, value]) => {
+        this.tableTasks.push({
+          uuid: value.uuid,
+          state: value.state,
+          started: value.started,
+          runtime: value.runtime
+        })
+        this.tableT.renderRows();
+      });
+    });
+  }
+
+  getWorkers() {
+    this.photosService.getFlowerWorkers().subscribe(data => {
+      Object.entries(data).forEach(([key, value]) => {
+        Object.entries(value.conf.beat_schedule).forEach(([subKey, subValue]) => {
+          this.tableWorkers.push({
+            workerValue: key,
+            taskName: value.conf.beat_schedule[subKey].task,
+            schedule: value.conf.beat_schedule[subKey].schedule,
+            total: value.stats.total[value.conf.beat_schedule[subKey].task]
+          });
+          this.table.renderRows();
+        });
+      });
+    });
   }
 
   getSingleImage(detection=false) {
@@ -74,7 +120,6 @@ export class PreviewComponent implements OnInit {
   }
 
   getImages(params) {
-    console.log(params);
     this.photosService.getPhotos(params).subscribe(result => {
       result.forEach(item => {
         // console.log(item);
