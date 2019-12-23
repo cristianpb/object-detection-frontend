@@ -12,8 +12,20 @@ import { Params } from '../params-photos';
 export class PlotsComponent implements OnInit {
   @Input() params: Params;
   @Output() paramsChange = new EventEmitter<Params>();
-  breakpoint: number;
-  chartwidth: number;
+  month_map = {
+    "01": "Jan",
+    "02": "Feb",
+    "03": "March",
+    "04": "April",
+    "05": "May",
+    "06": "June",
+    "07": "July",
+    "08": "August",
+    "09": "Sept",
+    "10": "Oct",
+    "11": "Nov",
+    "12": "Dec"
+  }
 
   constructor(private photosService: PhotosService) { }
 
@@ -21,24 +33,17 @@ export class PlotsComponent implements OnInit {
     this.plotImages()
     this.plotPieChart()
     this.plotLineChart()
-    console.log(window.innerWidth);
-    this.breakpoint = (window.innerWidth <= 400) ? 1 : 2;
-    this.chartwidth = (window.innerWidth <= 400) ? 400 : (window.innerWidth/2 - 50);
-    console.log("Chartwith", this.chartwidth);
-  }
-
-  onResize(event) {
-    this.breakpoint = (event.target.innerWidth <= 400) ? 1 : 2;
-    this.chartwidth = (event.target.innerWidth <= 400) ? 400 : (event.target.innerWidth/2);
-    console.log("Chartwith", this.chartwidth);
   }
 
   plotImages() {
-    console.log('plotin');
     let params = {condition: 'month'};
     this.photosService.getImageList(params).subscribe(result => {
-      this.barChartLabels = Object.entries(result).sort((a, b) => +a[0] - +b[0]).map(item => item[0]);
-      this.barChartData[0].data = Object.entries(result).sort((a, b) => +a[0] - +b[0]).map(item => item[1]);
+      Object.keys(result).forEach((key) => {
+        this.barChartLabels = Object.entries(result[key]).sort((a, b) => +a[0] - +b[0]).map(item => this.month_map[item[0]]);
+        this.barChartData[0].data = Object.entries(result[key]).sort((a, b) => +a[0] - +b[0]).map(item => item[1]);
+        this.barChartData[0].label = key;
+      })
+      console.log(this.barChartData);
     })
   }
 
@@ -58,16 +63,14 @@ export class PlotsComponent implements OnInit {
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
 
-  public barChartData: ChartDataSets[] = [
-    { data: [], label: 'Series A' }
-  ];
+  public barChartData: ChartDataSets[] = [{data: [], label: ''}]; // [ { data: [], label: 'Series A' } ];
 
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    //console.log(event, active);
-    console.log(active[0]['_model'].label);
-    this.params.month = active[0]['_model'].label
-    this.paramsChange.emit(this.params)
+    if (active.length > 0) {
+      this.params.month = active[0]['_model'].label
+      this.paramsChange.emit(this.params)
+    }
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
@@ -78,8 +81,8 @@ export class PlotsComponent implements OnInit {
     console.log('plotin');
     let params = {condition: 'detected_object'};
     this.photosService.getImageList(params).subscribe(result => {
-      this.pieChartLabels = Object.entries(result).map(item => item[0]);
-      this.pieChartData = Object.entries(result).map(item => item[1]);
+      this.pieChartLabels = Object.entries(result).sort((a, b) => -a[1] + +b[1]).map(item => item[0]);
+      this.pieChartData = Object.entries(result).sort((a, b) => -a[1] + +b[1]).map(item => item[1]);
     })
   }
 
@@ -111,19 +114,18 @@ export class PlotsComponent implements OnInit {
 
   // events
   public pieClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    //console.log(event, active);
-    console.log(active[0]['_model'].label);
-    this.params.detected_object = active[0]['_model'].label
-    this.paramsChange.emit(this.params)
-    console.log(event, active);
+    if (active.length > 0) {
+      this.params.detected_object = active[0]['_model'].label
+      this.paramsChange.emit(this.params)
+    }
   }
 
   plotLineChart() {
     console.log('plotin');
     let params = {condition: 'hour'};
     this.photosService.getImageList(params).subscribe(result => {
-      this.lineChartLabels = Object.entries(result).map(item => item[0]);
-      this.lineChartData[0].data = Object.entries(result).map(item => item[1]);
+      this.lineChartLabels = Object.entries(result).sort((a, b) => +a[0] - +b[0]).map(item => item[0]);
+      this.lineChartData[0].data = Object.entries(result).sort((a, b) => +a[0] - +b[0]).map(item => item[1]);
     })
   }
 
@@ -141,18 +143,38 @@ export class PlotsComponent implements OnInit {
   ];
   public lineChartOptions: ChartOptions = {
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    scales: {
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Hour'
+        }
+      }],
+      yAxes: [{
+        id: 'temp-y-axis',
+        type: 'linear',
+        position: 'left',
+        scaleLabel: {
+          display: true,
+          labelString: 'Number of photos'
+        }
+      }]
+    },
+    tooltips: {
+      mode: 'nearest',
+      intersect: false,
+    }
   };
   public lineChartLegend = true;
   public lineChartType = 'line';
 
   // events
   public linechartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    //console.log(event, active);
-    //console.log(active[0]);
-    //console.log(active[0]['_model'].label);
-    //this.params.hour = active[0]['_model'].label
-    //this.paramsChange.emit(this.params)
+    if (active.length > 0) {
+      this.params.hour = active[0]['_index'];
+      this.paramsChange.emit(this.params)
+    }
   }
 
 }
