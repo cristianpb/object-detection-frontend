@@ -96,24 +96,7 @@
     </table>
   </div>
 
-
 </div>
 
-<mat-grid-list cols="3" rowHeight="240">
-  <mat-grid-tile *ngFor="let image of images;">
-    <mat-grid-tile-header><button (click)="deleteImage(image)" mat-button>Delete</button>
-    </mat-grid-tile-header>
-    <a (click)="openDialog(image)">
-      <img src="/{{ image }}?w=320&h=240" width="320" height="240">
-    </a>
-    <mat-grid-tile-footer>{{ image | imagename }}</mat-grid-tile-footer>
-  </mat-grid-tile>
-</mat-grid-list>
-  
-<div
-  class="search-results"
-  infiniteScroll
-  [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="50"
-  (scrolled)="onScroll()"
-  ></div>
+<app-plots [(params)]="params" (paramsChange)="onPlotClick($event)"></app-plots>
+<app-photos [(images)]="images" [(params)]="params" ></app-photos>

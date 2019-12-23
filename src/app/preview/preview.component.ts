@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { PhotosService } from '../photos.service';
-import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material';
-import { SingleComponent } from '../single/single.component';
+import { ImageItem } from '../image-item';
+import { Params } from '../params-photos';
 
 @Component({
   selector: 'app-preview',
@@ -12,12 +12,11 @@ import { SingleComponent } from '../single/single.component';
 })
 export class PreviewComponent implements OnInit {
   events: string[] = [];
-  images: string[] = [];
+  images: ImageItem[] = [];
   tableWorkers: object[] = [];
   tableTasks: object[] = [];
-  page: number;
-  date: Date;
-  timer;
+  params: Params = {};
+  timer: any;
   showCam: boolean;
   showWorkersInfo: boolean;
   fps: number;
@@ -31,23 +30,20 @@ export class PreviewComponent implements OnInit {
   @ViewChild('tableTasksRef') tableT: MatTable<any>;
   //@ViewChild(MatTable) tableW: MatTable<any>;
 
-  constructor(private photosService: PhotosService, public dialog: MatDialog) { }
-
-  openDialog(image) {
-    const dialogRef = this.dialog.open(SingleComponent, {
-      data: { filename: image },
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
+  constructor(private photosService: PhotosService) { }
 
   ngOnInit() {
-    this.page = 0;
     this.fps = 3;
     this.detection = false;
-    const params = {page: this.page, date: this.date};
-    this.getImages(params);
+    this.params.page = 0
+    this.getImages();
+  }
+
+  onPlotClick(params) {
+    this.images = [];
+    this.params = params;
+    this.params.page = 0
+    this.getImages()
   }
 
   toggleWorkersInfo() {
@@ -111,16 +107,8 @@ export class PreviewComponent implements OnInit {
   }
 
 
-  onScroll() {
-    console.log('scrolled!!');
-    console.log('size', this.images.length);
-    this.page++;
-    const params = {page: this.page, date: this.date};
-    this.getImages(params);
-  }
-
-  getImages(params) {
-    this.photosService.getPhotos(params).subscribe(result => {
+  getImages() {
+    this.photosService.getPhotos(this.params).subscribe(result => {
       result.forEach(item => {
         // console.log(item);
         this.images.push(item);
@@ -128,21 +116,12 @@ export class PreviewComponent implements OnInit {
     });
   }
 
-  deleteImage(img) {
-    console.log(img);
-    this.photosService.deleteImage(img).subscribe(result => {
-      this.images.splice(this.images.indexOf(img), 1 );
-      console.log(result);
-    });
-  }
-
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
     this.images = [];
-    this.page = 0;
-    this.date = event.value;
-    const params = {page: this.page, date: this.date};
-    this.getImages(params);
+    this.params.page = 0;
+    this.params.date = event.value;
+    this.getImages();
     console.log(event.value);
   }
 

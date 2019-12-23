@@ -1,0 +1,18 @@
+<mat-grid-list cols="3" rowHeight="240">
+  <mat-grid-tile *ngFor="let item of images;">
+    <mat-grid-tile-header><button (click)="deleteImage(item.path)" mat-button>Delete</button>
+    </mat-grid-tile-header>
+    <a (click)="openDialog(item.path)">
+      <img src="/{{ item.path }}?w=320&h=240" width="320" height="240">
+    </a>
+    <mat-grid-tile-footer>{{ item.path | imagename }}</mat-grid-tile-footer>
+  </mat-grid-tile>
+</mat-grid-list>
+  
+<div
+  class="search-results"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+  ></div>

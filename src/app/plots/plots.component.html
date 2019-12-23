@@ -1,0 +1,51 @@
+<mat-grid-list [cols]="breakpoint" rowHeight="400px" (window:resize)="onResize($event)">
+  <mat-grid-tile>
+    <div class="flex">
+      <div class="flex-item">
+        <div style="display: block;">
+          <canvas baseChart [width]="chartwidth" height="400"
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [options]="barChartOptions"
+                  [legend]="barChartLegend"
+                  (chartClick)="chartClicked($event)"
+                  [chartType]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div class="flex">
+      <div class="flex-item">
+        <div style="display: block;">
+          <canvas baseChart [width]="chartwidth" height="400"
+                  [data]="pieChartData"
+                  [labels]="pieChartLabels"
+                  [chartType]="pieChartType"
+                  [options]="pieChartOptions"
+                  (chartClick)="pieClicked($event)"
+                  [colors]="pieChartColors"
+                  [legend]="pieChartLegend">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+<div class="flex">
+  <div class="flex-item">
+    <div style="display: block;">
+      <canvas baseChart width="400" height="400"
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [options]="lineChartOptions"
+              [chartType]="lineChartType"
+              (chartClick)="linechartClicked($event)"></canvas>
+    </div>
+  </div>
+</div>

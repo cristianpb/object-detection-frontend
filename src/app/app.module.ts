@@ -20,6 +20,9 @@ import { PreviewComponent } from './preview/preview.component';
 import { SingleComponent } from './single/single.component';
 import { ImagenamePipe } from './imagename.pipe';
 import { ImageDecodePipe } from './image-decode.pipe';
+import { ChartsModule } from 'ng2-charts';
+import { PlotsComponent } from './plots/plots.component';
+import { PhotosComponent } from './photos/photos.component';
 
 
 @NgModule({
@@ -29,6 +32,8 @@ import { ImageDecodePipe } from './image-decode.pipe';
     SingleComponent,
     ImagenamePipe,
     ImageDecodePipe,
+    PlotsComponent,
+    PhotosComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +51,7 @@ import { ImageDecodePipe } from './image-decode.pipe';
     MatSlideToggleModule,
     MatButtonModule,
     MatGridListModule,
+    ChartsModule,
     InfiniteScrollModule
   ],
   providers: [],
