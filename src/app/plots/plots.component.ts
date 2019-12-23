@@ -68,7 +68,8 @@ export class PlotsComponent implements OnInit {
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
     if (active.length > 0) {
-      this.params.month = active[0]['_model'].label
+      let idx = Object.values(this.month_map).indexOf(active[0]['_model'].label)
+      this.params.month = Object.entries(this.month_map)[idx][0] //active[0]['_model'].label
       this.paramsChange.emit(this.params)
     }
   }
