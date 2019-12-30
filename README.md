@@ -1,6 +1,10 @@
-# ObjectDetection [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fcristianpb%2Fobject-detection-frontend%2Fbadge%3Fref%3Dmaster&style=flat)](https://actions-badge.atrox.dev/cristianpb/object-detection-frontend/goto?ref=master)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fcristianpb%2Fobject-detection-frontend%2Fbadge%3Fref%3Dmaster&style=flat)](https://actions-badge.atrox.dev/cristianpb/object-detection-frontend/goto?ref=master)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+# ObjectDetection 
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.14.
+
+Preview can be seen at: https://object-detection-ssd.herokuapp.com/
 
 ## Development server
 
