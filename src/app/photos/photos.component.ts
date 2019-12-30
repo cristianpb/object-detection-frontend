@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { PhotosService } from '../photos.service';
 import { SingleComponent } from '../single/single.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ImageItem } from '../image-item';
 
 @Component({
   selector: 'app-photos',
@@ -9,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./photos.component.scss']
 })
 export class PhotosComponent implements OnInit {
-  @Input() images: any;
+  @Input() images: ImageItem[];
   @Input() params: any;
   // const params = {page: this.page, date: this.date};
   //@Input() page: any;
@@ -30,7 +31,7 @@ export class PhotosComponent implements OnInit {
   }
 
 
-  openDialog(image) {
+  openDialog(image: string) {
     const dialogRef = this.dialog.open(SingleComponent, {
       data: { filename: image },
     });
@@ -39,7 +40,7 @@ export class PhotosComponent implements OnInit {
     });
   }
 
-  deleteImage(img) {
+  deleteImage(img: string) {
     console.log(img);
     this.photosService.deleteImage(img).subscribe(result => {
       this.images.splice(this.images.map(item => item.path).indexOf(img), 1 );

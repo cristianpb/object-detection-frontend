@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Worker } from './worker';
 import { Tasks } from './tasks';
+import { Params } from './params-photos';
 import { ImageItem } from './image-item';
 
 @Injectable({
@@ -26,23 +27,22 @@ export class PhotosService {
   }
 
   getSingleImage(detection=false) {
-    let query = '';
+    let query = new HttpParams()
     if (detection) {
-      query += `detection=True`;
+      query = query.append('detection', 'True');
     }
-    return this.http.get<any>(`/api/single_image?${query}`);
+    return this.http.get<any>(`/api/single_image`, {params: query});
   }
 
   getImageList(params) {
-    let query = new HttpParams(params)
+    let query = new HttpParams();
     Object.entries(params).forEach((item: any) => {
       query = query.append(item[0], item[1]);
     });
-    console.log(query);
     return this.http.get<any>(`/api/list_files`, {params: query})
   }
 
-  getPhotos(params) {
+  getPhotos(params: Params) {
     let query = new HttpParams();
     let times = new Array('year', 'month', 'day', 'hour', 'minutes', 'page', 'detected_object');
     times.forEach((item) => {

@@ -43,7 +43,6 @@ export class PlotsComponent implements OnInit {
         this.barChartData[0].data = Object.entries(result[key]).sort((a, b) => +a[0] - +b[0]).map(item => item[1]);
         this.barChartData[0].label = key;
       })
-      console.log(this.barChartData);
     })
   }
 
@@ -79,7 +78,6 @@ export class PlotsComponent implements OnInit {
   }
 
   plotPieChart() {
-    console.log('plotin');
     let params = {condition: 'detected_object'};
     this.photosService.getImageList(params).subscribe(result => {
       this.pieChartLabels = Object.entries(result).sort((a, b) => -a[1] + +b[1]).map(item => item[0]);
@@ -122,7 +120,6 @@ export class PlotsComponent implements OnInit {
   }
 
   plotLineChart() {
-    console.log('plotin');
     let params = {condition: 'hour'};
     this.photosService.getImageList(params).subscribe(result => {
       this.lineChartLabels = Object.entries(result).sort((a, b) => +a[0] - +b[0]).map(item => item[0]);
