@@ -21,6 +21,7 @@ export class PreviewComponent implements OnInit {
   showWorkersInfo: boolean;
   fps: number;
   detection: boolean;
+  tracking: boolean;
   singleImage: any;
   displayedColumns: string[] = ['workerValue', 'taskName', 'schedule', 'totalTasks'];
   displayedColumnsTasks: string[] = ['uuid', 'state', 'runtime', 'started'];
@@ -34,6 +35,7 @@ export class PreviewComponent implements OnInit {
 
   ngOnInit() {
     this.fps = 3;
+    this.tracking = false;
     this.detection = false;
     this.params.page = 0
     this.getImages();
@@ -87,13 +89,13 @@ export class PreviewComponent implements OnInit {
     });
   }
 
-  getSingleImage(detection=false) {
-    this.photosService.getSingleImage(detection).subscribe(data => {
+  getSingleImage(detection=false, tracking=false) {
+    this.photosService.getSingleImage(detection, tracking).subscribe(data => {
       this.singleImage = data
     });
   }
 
-  toggleCam(detection=false) {
+  toggleCam() {
     console.log(this.detection);
     if (this.showCam === true) {
       this.showCam = false;
@@ -101,7 +103,7 @@ export class PreviewComponent implements OnInit {
     } else {
       this.showCam = true;
       this.timer = setInterval(() => {
-        this.getSingleImage(this.detection)
+        this.getSingleImage(this.detection, this.tracking)
       }, Math.floor(1000/this.fps));
     }
   }

@@ -26,10 +26,13 @@ export class PhotosService {
     return this.http.get<Tasks>(`/flower/api/tasks?limit=5`);
   }
 
-  getSingleImage(detection=false) {
+  getSingleImage(detection=false, tracking=false) {
     let query = new HttpParams()
     if (detection) {
       query = query.append('detection', 'True');
+    }
+    if (tracking) {
+      query = query.append('tracking', 'True');
     }
     return this.http.get<any>(`/api/single_image`, {params: query});
   }
