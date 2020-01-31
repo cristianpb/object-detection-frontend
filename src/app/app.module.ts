@@ -18,6 +18,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PreviewComponent } from './preview/preview.component';
 import { SingleComponent } from './single/single.component';
+import { MatSidenavModule } from '@angular/material/sidenav'; 
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { ImagenamePipe } from './imagename.pipe';
 import { ImageDecodePipe } from './image-decode.pipe';
 import { ChartsModule } from 'ng2-charts';
@@ -47,10 +49,12 @@ import { PhotosComponent } from './photos/photos.component';
     MatNativeDateModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSidenavModule,
     MatToolbarModule,
     MatSlideToggleModule,
     MatButtonModule,
     MatGridListModule,
+    FlexLayoutModule,
     ChartsModule,
     InfiniteScrollModule
   ],

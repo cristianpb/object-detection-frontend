@@ -1,105 +1,124 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <h1>Object detection</h1>
-    <!-- This fills the remaining space of the current row -->
-    <span class="example-fill-remaining-space"></span>
-    <button mat-button>
-      <mat-slide-toggle (click)="toggleWorkersInfo()">Workers</mat-slide-toggle>
-    </button>
-  </mat-toolbar-row>
-  <mat-toolbar-row>
-    <button mat-button>
-      <mat-slide-toggle (click)="toggleCam()">Cam</mat-slide-toggle>
-    </button>
-
-    <!-- This fills the remaining space of the current row -->
-    <span class="example-fill-remaining-space"></span>
-
-    <button mat-button>
-      <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Choose date"
-                                                 (dateInput)="addEvent('input', $event)">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </button>
-  </mat-toolbar-row>
-</mat-toolbar>
-
-<div *ngIf="(singleImage) && (showCam)">
-  <mat-grid-list cols="3" rowHeight="{{ singleImage.height }}">
-    <mat-grid-tile [colspan]="2">
-      <img [src]="singleImage.img | imageDecode" width="{{ singleImage.width }}" height="{{ singleImage.height }}">
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-list>
-        <mat-list-item> Frames per second </mat-list-item>
-        <mat-list-item> <input matInput cdkTextareaAutosize type="number" placeholder="Frame per seconds" [value]="fps" (input)="fps = $event.target.value"> </mat-list-item>
+<mat-sidenav-container class="drawer-container">
+  <mat-sidenav #sidenav mode="over">
+      <mat-nav-list>
         <mat-list-item>
-          <mat-slide-toggle [checked]="tracking" (input)="tracking = $event.target.checked">Object tracking</mat-slide-toggle>
+          <button mat-button>
+            <mat-slide-toggle (click)="toggleCam()">Cam</mat-slide-toggle>
+          </button>
         </mat-list-item>
         <mat-list-item>
-          <mat-slide-toggle [checked]="detection" (input)="detection = $event.target.checked">Detection</mat-slide-toggle>
+          <button mat-button>
+            <mat-slide-toggle (click)="showPlots=!showPlots">Stats</mat-slide-toggle>
+          </button>
         </mat-list-item>
-      </mat-list>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
+        <mat-list-item>
+          <button mat-button>
+            <mat-slide-toggle (click)="toggleWorkersInfo()">Workers</mat-slide-toggle>
+          </button>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <br>
+        <mat-list-item>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Choose date"
+                                                     (dateInput)="addEvent('input', $event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </mat-list-item>
+      </mat-nav-list>
 
-<div *ngIf="showWorkersInfo">
+  </mat-sidenav>
+  <mat-sidenav-content>
 
-  <div class="example-container mat-elevation-z8">
-    <table mat-table [dataSource]="tableWorkers">
-        <ng-container matColumnDef="workerValue">
-          <th mat-header-cell *matHeaderCellDef>Worker </th>
-          <td mat-cell *matCellDef="let element"> {{element.workerValue}} </td>
-        </ng-container>
+    <mat-toolbar color="primary" class="fixed-header">
+      <mat-toolbar-row>
+        <h1>Object detection</h1>
+        <!-- This fills the remaining space of the current row -->
+        <span class="example-fill-remaining-space"></span>
+        <p><button mat-button (click)="sidenav.toggle()">Options</button></p>
+      </mat-toolbar-row>
+    </mat-toolbar>
 
-        <ng-container matColumnDef="taskName">
-          <th mat-header-cell *matHeaderCellDef> Task name </th>
-          <td mat-cell *matCellDef="let element"> {{element.taskName}} </td>
-        </ng-container>
+    <br>
+    <br>
+    <br>
+    <br>
 
-        <ng-container matColumnDef="schedule">
-          <th mat-header-cell *matHeaderCellDef>Schedule</th>
-          <td mat-cell *matCellDef="let element"> {{element.schedule}} </td>
-        </ng-container>
+    <div *ngIf="(singleImage) && (showCam)">
+      <div 
+        fxLayout="row wrap" fxLayoutAlign="center">
+        <img [src]="singleImage.img | imageDecode" width="{{ singleImage.width }}" height="{{ singleImage.height }}">
 
-        <ng-container matColumnDef="totalTasks">
-          <th mat-header-cell *matHeaderCellDef>Total tasks</th>
-          <td mat-cell *matCellDef="let element"> {{element.total}} </td>
-        </ng-container>
+        <mat-list fxFlex="0 1 calc(33.3% - 32px)">
+          <mat-list-item> Frames per second </mat-list-item>
+          <mat-list-item> <input matInput cdkTextareaAutosize type="number" placeholder="Frame per seconds" [value]="fps" (input)="fps = $event.target.value"> </mat-list-item>
+          <mat-list-item>
+            <mat-slide-toggle [checked]="tracking" (input)="tracking = $event.target.checked">Object tracking</mat-slide-toggle>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-slide-toggle [checked]="detection" (input)="detection = $event.target.checked">Detection</mat-slide-toggle>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <table mat-table [dataSource]="tableTasks" #tableTasksRef>
-        <ng-container matColumnDef="uuid">
-          <th mat-header-cell *matHeaderCellDef>ID </th>
-          <td mat-cell *matCellDef="let element"> {{element.uuid}} </td>
-        </ng-container>
+    <div *ngIf="showWorkersInfo">
 
-        <ng-container matColumnDef="state">
-          <th mat-header-cell *matHeaderCellDef>State</th>
-          <td mat-cell *matCellDef="let element"> {{element.state}} </td>
-        </ng-container>
+      <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="tableWorkers">
+          <ng-container matColumnDef="workerValue">
+            <th mat-header-cell *matHeaderCellDef>Worker </th>
+            <td mat-cell *matCellDef="let element"> {{element.workerValue}} </td>
+          </ng-container>
 
-        <ng-container matColumnDef="runtime">
-          <th mat-header-cell *matHeaderCellDef>Runtime [seconds]</th>
-          <td mat-cell *matCellDef="let element"> {{element.runtime | number:'1.0-2'}} </td>
-        </ng-container>
+          <ng-container matColumnDef="taskName">
+            <th mat-header-cell *matHeaderCellDef> Task name </th>
+            <td mat-cell *matCellDef="let element"> {{element.taskName}} </td>
+          </ng-container>
 
-        <ng-container matColumnDef="started">
-          <th mat-header-cell *matHeaderCellDef>Started</th>
-          <td mat-cell *matCellDef="let element"> {{element.started * 1000 | date:'EE d/LLL/y H:m:s'}} </td>
-        </ng-container>
+          <ng-container matColumnDef="schedule">
+            <th mat-header-cell *matHeaderCellDef>Schedule</th>
+            <td mat-cell *matCellDef="let element"> {{element.schedule}} </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsTasks"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumnsTasks;"></tr>
-    </table>
-  </div>
+          <ng-container matColumnDef="totalTasks">
+            <th mat-header-cell *matHeaderCellDef>Total tasks</th>
+            <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+          </ng-container>
 
-</div>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <table mat-table [dataSource]="tableTasks" #tableTasksRef>
+          <ng-container matColumnDef="uuid">
+            <th mat-header-cell *matHeaderCellDef>ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.uuid}} </td>
+          </ng-container>
 
-<app-plots [(params)]="params" (paramsChange)="onPlotClick($event)"></app-plots>
-<app-photos [(images)]="images" [(params)]="params" ></app-photos>
+          <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef>State</th>
+            <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="runtime">
+            <th mat-header-cell *matHeaderCellDef>Runtime [seconds]</th>
+            <td mat-cell *matCellDef="let element"> {{element.runtime | number:'1.0-2'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="started">
+            <th mat-header-cell *matHeaderCellDef>Started</th>
+            <td mat-cell *matCellDef="let element"> {{element.started * 1000 | date:'EE d/LLL/y H:m:s'}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsTasks"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsTasks;"></tr>
+        </table>
+      </div>
+
+    </div>
+
+    <app-plots *ngIf="showPlots" [(params)]="params" (paramsChange)="onPlotClick($event)"></app-plots>
+    <app-photos [(images)]="images" [(params)]="params" ></app-photos>
+  </mat-sidenav-content>
+</mat-sidenav-container>

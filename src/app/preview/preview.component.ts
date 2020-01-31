@@ -25,6 +25,7 @@ export class PreviewComponent implements OnInit {
   singleImage: any;
   displayedColumns: string[] = ['workerValue', 'taskName', 'schedule', 'totalTasks'];
   displayedColumnsTasks: string[] = ['uuid', 'state', 'runtime', 'started'];
+  showPlots: boolean;
 
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
