@@ -12,6 +12,8 @@
 <div
   class="search-results"
   infiniteScroll
+  infiniteScrollContainer=".my-sidenav-content"
+  [fromRoot]="true"
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()"
