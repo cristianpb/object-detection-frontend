@@ -16,6 +16,10 @@
             <mat-slide-toggle (click)="toggleWorkersInfo()">Workers</mat-slide-toggle>
           </button>
         </mat-list-item>
+        <mat-list-item>
+          <button (click)="launchTask()" mat-button>Object tracking
+          </button>
+        </mat-list-item>
         <mat-divider></mat-divider>
         <br>
         <mat-list-item>
@@ -109,6 +113,12 @@
           <ng-container matColumnDef="started">
             <th mat-header-cell *matHeaderCellDef>Started</th>
             <td mat-cell *matCellDef="let element"> {{element.started * 1000 | date:'EE d/LLL/y H:m:s'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element" (click)="killTracking(element.uuid)"> {{ element.state === "STARTED"? "kill": "" }}
+            </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumnsTasks"></tr>

@@ -26,6 +26,14 @@ export class PhotosService {
     return this.http.get<Tasks>(`/flower/api/tasks?limit=5`);
   }
 
+  launchTracking() {
+    return this.http.get<any>(`/api/task/launch`);
+  }
+
+  killTracking(task_id: string) {
+    return this.http.get<any>(`/api/task/kill/${task_id}`);
+  }
+
   getSingleImage(detection=false, tracking=false) {
     let query = new HttpParams()
     if (detection) {

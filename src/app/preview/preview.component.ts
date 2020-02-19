@@ -24,7 +24,7 @@ export class PreviewComponent implements OnInit {
   tracking: boolean;
   singleImage: any;
   displayedColumns: string[] = ['workerValue', 'taskName', 'schedule', 'totalTasks'];
-  displayedColumnsTasks: string[] = ['uuid', 'state', 'runtime', 'started'];
+  displayedColumnsTasks: string[] = ['uuid', 'state', 'runtime', 'started', 'action'];
   showPlots: boolean;
 
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
@@ -87,6 +87,20 @@ export class PreviewComponent implements OnInit {
           this.table.renderRows();
         });
       });
+    });
+  }
+
+  launchTask() {
+    this.photosService.launchTracking().subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  killTracking(task_id: string) {
+    this.photosService.killTracking(task_id).subscribe(data => {
+      console.log(data);
+      this.tableTasks = [];
+      this.getTasks();
     });
   }
 
