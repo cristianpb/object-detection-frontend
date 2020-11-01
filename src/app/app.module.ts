@@ -25,6 +25,7 @@ import { ImageDecodePipe } from './image-decode.pipe';
 import { ChartsModule } from 'ng2-charts';
 import { PlotsComponent } from './plots/plots.component';
 import { PhotosComponent } from './photos/photos.component';
+import { CameraComponent } from './camera/camera.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { PhotosComponent } from './photos/photos.component';
     ImageDecodePipe,
     PlotsComponent,
     PhotosComponent,
+    CameraComponent,
   ],
   imports: [
     BrowserModule,

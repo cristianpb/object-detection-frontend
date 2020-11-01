@@ -42,6 +42,7 @@
         <h1 *ngIf="cardLayout !== 'mobile'">Object detection</h1>
         <!-- This fills the remaining space of the current row -->
         <span class="example-fill-remaining-space"></span>
+        <button mat-button (click)="toggleCam()"><span class="material-icons">photo_camera</span></button>
         <p><button mat-button (click)="sidenav.toggle()">Options</button></p>
       </mat-toolbar-row>
     </mat-toolbar>
@@ -51,23 +52,7 @@
     <br>
     <br>
 
-    <div *ngIf="(singleImage) && (showCam)">
-      <div 
-        fxLayout="row wrap" fxLayoutAlign="center">
-        <img [src]="singleImage.img | imageDecode" width="{{ singleImage.width }}" height="{{ singleImage.height }}">
-
-        <mat-list fxFlex="0 1 calc(33.3% - 32px)">
-          <mat-list-item> Frames per second </mat-list-item>
-          <mat-list-item> <input matInput cdkTextareaAutosize type="number" placeholder="Frame per seconds" [value]="fps" (input)="fps = $event.target.value"> </mat-list-item>
-          <mat-list-item>
-            <mat-slide-toggle [checked]="tracking" (input)="tracking = $event.target.checked">Object tracking</mat-slide-toggle>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-slide-toggle [checked]="detection" (input)="detection = $event.target.checked">Detection</mat-slide-toggle>
-          </mat-list-item>
-        </mat-list>
-      </div>
-    </div>
+    <app-camera *ngIf="showCam"></app-camera>
 
     <div *ngIf="showWorkersInfo">
 
