@@ -3,7 +3,7 @@
     <mat-grid-tile-header><button (click)="deleteImage(item.path)" mat-button>Delete</button>
     </mat-grid-tile-header>
     <a (click)="openDialog(item.path)">
-      <img src="/{{ item.path }}?w=320&h=240" width="320" height="240">
+      <img src="{{ item.path }}?w=320&h=240" width="320" height="240">
     </a>
     <mat-grid-tile-footer>{{ item.path | imagename }}</mat-grid-tile-footer>
   </mat-grid-tile>

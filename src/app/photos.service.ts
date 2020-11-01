@@ -15,23 +15,23 @@ export class PhotosService {
   deleteImage(img) {
     const formData: FormData = new FormData();
     formData.append('filename', img);
-    return this.http.post(`/api/delete`, formData);
+    return this.http.post(`api/delete`, formData);
   }
 
   getFlowerWorkers() {
-    return this.http.get<Worker>(`/flower/api/workers`);
+    return this.http.get<Worker>(`flower/api/workers`);
   }
 
   getFlowerTasks() {
-    return this.http.get<Tasks>(`/flower/api/tasks?limit=5`);
+    return this.http.get<Tasks>(`flower/api/tasks?limit=5`);
   }
 
   launchTracking() {
-    return this.http.get<any>(`/api/task/launch`);
+    return this.http.get<any>(`api/task/launch`);
   }
 
   killTracking(task_id: string) {
-    return this.http.get<any>(`/api/task/kill/${task_id}`);
+    return this.http.get<any>(`api/task/kill/${task_id}`);
   }
 
   getSingleImage(detection=false, tracking=false) {
@@ -42,7 +42,7 @@ export class PhotosService {
     if (tracking) {
       query = query.append('tracking', 'True');
     }
-    return this.http.get<any>(`/api/single_image`, {params: query});
+    return this.http.get<any>(`api/single_image`, {params: query});
   }
 
   getImageList(params) {
@@ -50,7 +50,7 @@ export class PhotosService {
     Object.entries(params).forEach((item: any) => {
       query = query.append(item[0], item[1]);
     });
-    return this.http.get<any>(`/api/list_files`, {params: query})
+    return this.http.get<any>(`api/list_files`, {params: query})
   }
 
   getPhotos(params: Params) {
@@ -65,6 +65,6 @@ export class PhotosService {
       let selectedDate = new Intl.DateTimeFormat('fr-FR').format(params.date);
       query = query.append('date', selectedDate)
     }
-    return this.http.get<ImageItem[]>('/api/images', {params: query});
+    return this.http.get<ImageItem[]>('api/images', {params: query});
   }
 }
