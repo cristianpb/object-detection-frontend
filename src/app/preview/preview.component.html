@@ -37,7 +37,9 @@
 
     <mat-toolbar color="primary" class="fixed-header">
       <mat-toolbar-row>
-        <h1>Object detection</h1>
+        <img src="assets/logo.png" alt="" width="20" height="20">
+        &nbsp;
+        <h1 *ngIf="cardLayout !== 'mobile'">Object detection</h1>
         <!-- This fills the remaining space of the current row -->
         <span class="example-fill-remaining-space"></span>
         <p><button mat-button (click)="sidenav.toggle()">Options</button></p>

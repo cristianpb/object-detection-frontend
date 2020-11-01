@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { PhotosService } from '../photos.service';
 import { MatTable } from '@angular/material';
@@ -26,13 +27,25 @@ export class PreviewComponent implements OnInit {
   displayedColumns: string[] = ['workerValue', 'taskName', 'schedule', 'totalTasks'];
   displayedColumnsTasks: string[] = ['uuid', 'state', 'runtime', 'started', 'action'];
   showPlots: boolean;
+  cardLayout: string;
 
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
   @ViewChild('tableTasksRef', { static: false }) tableT: MatTable<any>;
   //@ViewChild(MatTable) tableW: MatTable<any>;
 
-  constructor(private photosService: PhotosService) { }
+  constructor(private photosService: PhotosService, breakpointObserver: BreakpointObserver) {
+    breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Large
+    ]).subscribe(result => {
+      if (result.breakpoints[Breakpoints.XSmall]) {
+        this.cardLayout = 'mobile';
+      } else {
+        this.cardLayout = 'desktop';
+      }
+    });
+  }
 
   ngOnInit() {
     this.fps = 3;
