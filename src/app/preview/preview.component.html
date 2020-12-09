@@ -53,67 +53,7 @@
     <br>
 
     <app-camera *ngIf="showCam"></app-camera>
-
-    <div *ngIf="showWorkersInfo">
-
-      <div class="example-container mat-elevation-z8">
-        <table mat-table [dataSource]="tableWorkers">
-          <ng-container matColumnDef="workerValue">
-            <th mat-header-cell *matHeaderCellDef>Worker </th>
-            <td mat-cell *matCellDef="let element"> {{element.workerValue}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="taskName">
-            <th mat-header-cell *matHeaderCellDef> Task name </th>
-            <td mat-cell *matCellDef="let element"> {{element.taskName}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="schedule">
-            <th mat-header-cell *matHeaderCellDef>Schedule</th>
-            <td mat-cell *matCellDef="let element"> {{element.schedule}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="totalTasks">
-            <th mat-header-cell *matHeaderCellDef>Total tasks</th>
-            <td mat-cell *matCellDef="let element"> {{element.total}} </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        <table mat-table [dataSource]="tableTasks" #tableTasksRef>
-          <ng-container matColumnDef="uuid">
-            <th mat-header-cell *matHeaderCellDef>ID </th>
-            <td mat-cell *matCellDef="let element"> {{element.uuid}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="state">
-            <th mat-header-cell *matHeaderCellDef>State</th>
-            <td mat-cell *matCellDef="let element"> {{element.state}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="runtime">
-            <th mat-header-cell *matHeaderCellDef>Runtime [seconds]</th>
-            <td mat-cell *matCellDef="let element"> {{element.runtime | number:'1.0-2'}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="started">
-            <th mat-header-cell *matHeaderCellDef>Started</th>
-            <td mat-cell *matCellDef="let element"> {{element.started * 1000 | date:'EE d/LLL/y H:m:s'}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef>Action</th>
-            <td mat-cell *matCellDef="let element" (click)="killTracking(element.uuid)"> {{ element.state === "STARTED"? "kill": "" }}
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumnsTasks"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumnsTasks;"></tr>
-        </table>
-      </div>
-
-    </div>
+    <app-workers *ngIf="showWorkersInfo"></app-workers>
 
     <app-plots *ngIf="showPlots" [(params)]="params" (paramsChange)="onPlotClick($event)"></app-plots>
     <app-photos [(images)]="images" [(params)]="params" ></app-photos>

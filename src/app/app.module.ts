@@ -26,6 +26,7 @@ import { ChartsModule } from 'ng2-charts';
 import { PlotsComponent } from './plots/plots.component';
 import { PhotosComponent } from './photos/photos.component';
 import { CameraComponent } from './camera/camera.component';
+import { WorkersComponent } from './workers/workers.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { CameraComponent } from './camera/camera.component';
     PlotsComponent,
     PhotosComponent,
     CameraComponent,
+    WorkersComponent,
   ],
   imports: [
     BrowserModule,
