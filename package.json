@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "./node_modules/.bin/ng serve",
-    "build": "./node_modules/.bin/ng build --output-path ~/Documents/python/object-detection/dist --watch",
-    "prod": "./node_modules/.bin/ng build --output-path ./dist --aot --prod",
-    "test": "./node_modules/.bin/ng test",
-    "lint": "./node_modules/.bin/ng lint",
-    "e2e": "./node_modules/.bin/ng e2e"
+    "start": "ng serve",
+    "build": "ng build --output-path ~/Documents/python/object-detection/dist --watch",
+    "prod": "ng build --output-path ./dist --aot --prod",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
