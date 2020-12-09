@@ -42,8 +42,20 @@
         <h1 *ngIf="cardLayout !== 'mobile'">Object detection</h1>
         <!-- This fills the remaining space of the current row -->
         <span class="example-fill-remaining-space"></span>
-        <button mat-button (click)="toggleCam()"><span class="material-icons">photo_camera</span></button>
-        <p><button mat-button (click)="sidenav.toggle()">Options</button></p>
+        <button mat-button (click)="toggleWorkersInfo()">
+          <span class="material-icons">
+            add_task
+          </span>
+        </button>
+        <button mat-button (click)="toggleCam()">
+          <ic-icon icon="camera" [inline]="true"></ic-icon>
+        </button>
+        <button mat-button (click)="toggleCamStream()">Stream
+          <ic-icon icon="videoWireless" [inline]="true"></ic-icon>
+        </button>
+        <button mat-button (click)="sidenav.toggle()">
+          <ic-icon icon="menu" [inline]="true"></ic-icon>
+        </button>
       </mat-toolbar-row>
     </mat-toolbar>
 
