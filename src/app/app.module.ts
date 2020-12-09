@@ -29,6 +29,8 @@ import { PhotosComponent } from './photos/photos.component';
 import { CameraComponent } from './camera/camera.component';
 import { WorkersComponent } from './workers/workers.component';
 import { CameraStreamComponent } from './camera-stream/camera-stream.component';
+import { IconService } from '@visurel/iconify-angular';
+import { IconModule } from '@visurel/iconify-angular';
 
 
 @NgModule({
@@ -64,9 +66,10 @@ import { CameraStreamComponent } from './camera-stream/camera-stream.component';
     MatGridListModule,
     FlexLayoutModule,
     ChartsModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    IconModule
   ],
-  providers: [],
+  providers: [IconService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
