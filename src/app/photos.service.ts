@@ -30,8 +30,26 @@ export class PhotosService {
     return this.http.get<any>(`api/task/launch`);
   }
 
+  launchContinousDetection() {
+    return this.http.get<any>(`api/beat/launch`);
+  }
+
   killTracking(task_id: string) {
     return this.http.get<any>(`api/task/kill/${task_id}`);
+  }
+
+  getStreamImage(url=null, detection=false, tracking=false) {
+    let query = new HttpParams()
+    if (url) {
+      query = query.append('url', url);
+    }
+    if (detection) {
+      query = query.append('detection', 'True');
+    }
+    if (tracking) {
+      query = query.append('tracking', 'True');
+    }
+    return this.http.get<any>(`api/stream_image`, {params: query});
   }
 
   getSingleImage(detection=false, tracking=false) {

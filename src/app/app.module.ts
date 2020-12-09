@@ -11,6 +11,7 @@ import { MatListModule, MatNativeDateModule, MatInputModule } from '@angular/mat
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table'; 
+import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,6 +28,7 @@ import { PlotsComponent } from './plots/plots.component';
 import { PhotosComponent } from './photos/photos.component';
 import { CameraComponent } from './camera/camera.component';
 import { WorkersComponent } from './workers/workers.component';
+import { CameraStreamComponent } from './camera-stream/camera-stream.component';
 
 
 @NgModule({
@@ -40,6 +42,7 @@ import { WorkersComponent } from './workers/workers.component';
     PhotosComponent,
     CameraComponent,
     WorkersComponent,
+    CameraStreamComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import { WorkersComponent } from './workers/workers.component';
     MatListModule,
     MatDatepickerModule,
     MatTableModule,
+    MatCardModule,
     MatNativeDateModule,
     MatInputModule,
     MatFormFieldModule,

@@ -15,6 +15,7 @@ export class PreviewComponent implements OnInit {
   images: ImageItem[] = [];
   params: Params = {};
   showCam: boolean;
+  showCamStream: boolean;
   showWorkersInfo: boolean;
   showPlots: boolean;
   cardLayout: string;
@@ -59,6 +60,14 @@ export class PreviewComponent implements OnInit {
       this.showCam = false;
     } else {
       this.showCam = true;
+    }
+  }
+
+  toggleCamStream() {
+    if (this.showCamStream === true) {
+      this.showCamStream = false;
+    } else {
+      this.showCamStream = true;
     }
   }
 
