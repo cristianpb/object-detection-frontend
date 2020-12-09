@@ -1,0 +1,18 @@
+<mat-toolbar color="primary" class="fixed-header">
+  <mat-toolbar-row>
+    <img src="assets/logo.png" alt="" width="20" height="20">
+    &nbsp;
+    <h1 *ngIf="cardLayout !== 'mobile'">Object detection</h1>
+    <!-- This fills the remaining space of the current row -->
+    <span class="example-fill-remaining-space"></span>
+    <button mat-button routerLink="cameras">
+      <ic-icon icon="camera" [inline]="true"></ic-icon>
+    </button>
+    <button mat-button routerLink="images">
+      <ic-icon icon="home" [inline]="true"></ic-icon>
+    </button>
+    <button mat-button (click)="sidenav.toggle()">
+      <ic-icon icon="menu" [inline]="true"></ic-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>

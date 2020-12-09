@@ -1,20 +1,3 @@
-section {
-  padding-right: 30px;
-  padding-left: 80px;
-}
-
-.example-fill-remaining-space {
-  /* This fills the remaining space, by using flexbox. 
-     Every toolbar row uses a flexbox row layout. */
-  flex: 1 1 auto;
-}
-
-.example-container {
-  //height: 400px;
-  width: 100%;
-  overflow: auto;
-}
-
 .drawer-container {
   position: absolute;
   top: 0;
@@ -22,14 +5,6 @@ section {
   left: 0;
   right: 0;
   background: #eee;
-}
-
-.fixed-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    width: 100%  !important;
 }
 
 table {

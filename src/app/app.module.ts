@@ -31,6 +31,8 @@ import { WorkersComponent } from './workers/workers.component';
 import { CameraStreamComponent } from './camera-stream/camera-stream.component';
 import { IconService } from '@visurel/iconify-angular';
 import { IconModule } from '@visurel/iconify-angular';
+import { NavbarComponent } from './navbar/navbar.component';
+import { CamerasComponent } from './cameras/cameras.component';
 
 
 @NgModule({
@@ -45,6 +47,8 @@ import { IconModule } from '@visurel/iconify-angular';
     CameraComponent,
     WorkersComponent,
     CameraStreamComponent,
+    NavbarComponent,
+    CamerasComponent,
   ],
   imports: [
     BrowserModule,
