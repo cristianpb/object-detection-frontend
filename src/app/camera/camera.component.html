@@ -8,15 +8,15 @@
   <p *ngIf="!singleImage">Loading image</p>
 
   <mat-list fxFlex="0 1 calc(33.3% - 32px)">
-
-    <app-camera-form></app-camera-form>
-    <mat-list-item> Frames per second: 
-    <input matInput cdkTextareaAutosize type="number" placeholder="Frame per seconds" [value]="fps" (input)="fps = $event.target.value"> </mat-list-item>
-    <mat-list-item>
-      <mat-slide-toggle [checked]="tracking" (input)="tracking = $event.target.checked">Object tracking</mat-slide-toggle>
-    </mat-list-item>
-    <mat-list-item>
-      <mat-slide-toggle [checked]="detection" (input)="detection = $event.target.checked">Detection</mat-slide-toggle>
-    </mat-list-item>
+    <form class="example-form" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()" ngNativeValidate>
+      <mat-form-field appearance="fill">
+        <mat-label>Frames per second</mat-label>
+        <input matInput type="number" placeholder="Ex. 4" formControlName="framesPerSecond" min="0">
+        <mat-error *ngIf="formGroup.value.framesPerSecond.invalid">Min size: 10px</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-slide-toggle formControlName="tracking">Tracking</mat-slide-toggle>
+      <mat-slide-toggle formControlName="detection">Detection</mat-slide-toggle>
+    </form>
   </mat-list>
 </div>

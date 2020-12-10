@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PhotosService } from '../photos.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-camera',
@@ -13,8 +14,14 @@ export class CameraComponent implements OnInit {
   fps: number;
   tracking: boolean;
   detection: boolean;
+  formGroup: FormGroup;
 
-  constructor(private photosService: PhotosService) {
+  constructor(fb: FormBuilder, private photosService: PhotosService) {
+    this.formGroup = fb.group({
+      tracking: new FormControl(false),
+      detection: new FormControl(false),
+      framesPerSecond: new FormControl(3, Validators.min(0))
+    });
   }
 
   ngOnInit() {
@@ -22,7 +29,7 @@ export class CameraComponent implements OnInit {
     this.fps = 3;
     this.tracking = false;
     this.timer = setInterval(() => {
-      this.getSingleImage(this.cameraName, this.detection, this.tracking)
+      this.getSingleImage({cameraName: this.cameraName, ...this.formGroup.value})
     }, Math.floor(1000/this.fps));
   }
 
@@ -30,8 +37,8 @@ export class CameraComponent implements OnInit {
     clearInterval(this.timer);
   }
 
-  getSingleImage(cameraName=null, detection=false, tracking=false) {
-    this.photosService.getSingleImage(cameraName, detection, tracking).subscribe(data => {
+  getSingleImage(options: any) {
+    this.photosService.getSingleImage(options).subscribe(data => {
       this.singleImage = data
     });
   }

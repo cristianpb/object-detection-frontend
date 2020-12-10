@@ -53,17 +53,8 @@ export class PhotosService {
     return this.http.get<any>(`api/stream_image`, {params: query});
   }
 
-  getSingleImage(cameraName=null, detection=false, tracking=false) {
-    let query = new HttpParams()
-    if (cameraName) {
-      query = query.append('cameraName', cameraName);
-    }
-    if (detection) {
-      query = query.append('detection', 'True');
-    }
-    if (tracking) {
-      query = query.append('tracking', 'True');
-    }
+  getSingleImage(options: any) {
+    let query = new HttpParams({fromObject:options})
     return this.http.get<any>(`api/single_image`, {params: query});
   }
 

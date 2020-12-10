@@ -33,7 +33,6 @@ import { IconService } from '@visurel/iconify-angular';
 import { IconModule } from '@visurel/iconify-angular';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CamerasComponent } from './cameras/cameras.component';
-import { CameraFormComponent } from './camera-form/camera-form.component';
 
 
 @NgModule({
@@ -49,7 +48,6 @@ import { CameraFormComponent } from './camera-form/camera-form.component';
     WorkersComponent,
     NavbarComponent,
     CamerasComponent,
-    CameraFormComponent,
   ],
   imports: [
     BrowserModule,
