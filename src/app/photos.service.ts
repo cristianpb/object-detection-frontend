@@ -39,20 +39,6 @@ export class PhotosService {
     return this.http.get<any>(`api/task/kill/${task_id}`);
   }
 
-  getStreamImage(url=null, detection=false, tracking=false) {
-    let query = new HttpParams()
-    if (url) {
-      query = query.append('url', url);
-    }
-    if (detection) {
-      query = query.append('detection', 'True');
-    }
-    if (tracking) {
-      query = query.append('tracking', 'True');
-    }
-    return this.http.get<any>(`api/stream_image`, {params: query});
-  }
-
   getSingleImage(options: any) {
     let query = new HttpParams({fromObject:options})
     return this.http.get<any>(`api/single_image`, {params: query});
