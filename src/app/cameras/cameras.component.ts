@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PhotosService } from '../photos.service';
+import { Config } from '../types/config';
 
 @Component({
   selector: 'app-cameras',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cameras.component.scss']
 })
 export class CamerasComponent implements OnInit {
+  config: Config;
 
-  constructor() { }
+  constructor(private photosService: PhotosService) { }
 
   ngOnInit() {
+    this.loadConfig()
+  }
+
+  loadConfig() {
+    this.photosService.getConfig().subscribe((data: Config) => {
+      this.config = data;
+    })
   }
 
 }

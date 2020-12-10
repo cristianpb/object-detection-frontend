@@ -1,1 +1,6 @@
-<p>cameras works!</p>
+<div *ngIf="config">
+  <div *ngFor="let camera of config.cameras">
+    <p>{{ camera.type }}</p>
+  </div>
+</div>
+<app-camera></app-camera>

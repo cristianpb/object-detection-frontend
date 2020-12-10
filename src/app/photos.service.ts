@@ -4,6 +4,7 @@ import { Worker } from './worker';
 import { Tasks } from './tasks';
 import { Params } from './params-photos';
 import { ImageItem } from './image-item';
+import { Config } from './types/config';
 
 @Injectable({
   providedIn: 'root'
@@ -85,4 +86,9 @@ export class PhotosService {
     }
     return this.http.get<ImageItem[]>('api/images', {params: query});
   }
+
+  getConfig() {
+    return this.http.get<Config>('api/config');
+  }
+
 }
