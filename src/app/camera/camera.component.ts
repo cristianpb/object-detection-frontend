@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PhotosService } from '../photos.service';
 
 @Component({
@@ -7,6 +7,7 @@ import { PhotosService } from '../photos.service';
   styleUrls: ['./camera.component.scss']
 })
 export class CameraComponent implements OnInit {
+  @Input() cameraName: string;
   timer: any;
   singleImage: any;
   fps: number;
@@ -21,7 +22,7 @@ export class CameraComponent implements OnInit {
     this.fps = 3;
     this.tracking = false;
     this.timer = setInterval(() => {
-      this.getSingleImage(this.detection, this.tracking)
+      this.getSingleImage(this.cameraName, this.detection, this.tracking)
     }, Math.floor(1000/this.fps));
   }
 
@@ -29,8 +30,8 @@ export class CameraComponent implements OnInit {
     clearInterval(this.timer);
   }
 
-  getSingleImage(detection=false, tracking=false) {
-    this.photosService.getSingleImage(detection, tracking).subscribe(data => {
+  getSingleImage(cameraName=null, detection=false, tracking=false) {
+    this.photosService.getSingleImage(cameraName, detection, tracking).subscribe(data => {
       this.singleImage = data
     });
   }

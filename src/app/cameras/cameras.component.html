@@ -1,6 +1,6 @@
 <div *ngIf="config">
   <div *ngFor="let camera of config.cameras">
     <p>{{ camera.type }}</p>
+    <app-camera [cameraName]="camera.name"></app-camera>
   </div>
 </div>
-<app-camera></app-camera>
