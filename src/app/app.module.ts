@@ -28,7 +28,6 @@ import { PlotsComponent } from './plots/plots.component';
 import { PhotosComponent } from './photos/photos.component';
 import { CameraComponent } from './camera/camera.component';
 import { WorkersComponent } from './workers/workers.component';
-import { CameraStreamComponent } from './camera-stream/camera-stream.component';
 import { IconService } from '@visurel/iconify-angular';
 import { IconModule } from '@visurel/iconify-angular';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -46,7 +45,6 @@ import { CamerasComponent } from './cameras/cameras.component';
     PhotosComponent,
     CameraComponent,
     WorkersComponent,
-    CameraStreamComponent,
     NavbarComponent,
     CamerasComponent,
   ],
