@@ -20,6 +20,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PreviewComponent } from './preview/preview.component';
 import { SingleComponent } from './single/single.component';
 import { MatSidenavModule } from '@angular/material/sidenav'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ImagenamePipe } from './imagename.pipe';
 import { ImageDecodePipe } from './image-decode.pipe';
@@ -32,6 +33,7 @@ import { IconService } from '@visurel/iconify-angular';
 import { IconModule } from '@visurel/iconify-angular';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CamerasComponent } from './cameras/cameras.component';
+import { CameraFormComponent } from './camera-form/camera-form.component';
 
 
 @NgModule({
@@ -47,6 +49,7 @@ import { CamerasComponent } from './cameras/cameras.component';
     WorkersComponent,
     NavbarComponent,
     CamerasComponent,
+    CameraFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,8 @@ import { CamerasComponent } from './cameras/cameras.component';
     MatInputModule,
     MatFormFieldModule,
     MatSidenavModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatSlideToggleModule,
     MatButtonModule,

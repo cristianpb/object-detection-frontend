@@ -1,3 +1,6 @@
+<div fxLayout="row wrap" fxLayoutAlign="center">
+  <p class="mat-title">{{ cameraName }}</p>
+</div>
 <div 
   fxLayout="row wrap" fxLayoutAlign="center">
   <img *ngIf="singleImage" [src]="singleImage.img | imageDecode" width="{{ singleImage.width }}" height="{{ singleImage.height }}">
@@ -5,8 +8,10 @@
   <p *ngIf="!singleImage">Loading image</p>
 
   <mat-list fxFlex="0 1 calc(33.3% - 32px)">
-    <mat-list-item> Frames per second </mat-list-item>
-    <mat-list-item> <input matInput cdkTextareaAutosize type="number" placeholder="Frame per seconds" [value]="fps" (input)="fps = $event.target.value"> </mat-list-item>
+
+    <app-camera-form></app-camera-form>
+    <mat-list-item> Frames per second: 
+    <input matInput cdkTextareaAutosize type="number" placeholder="Frame per seconds" [value]="fps" (input)="fps = $event.target.value"> </mat-list-item>
     <mat-list-item>
       <mat-slide-toggle [checked]="tracking" (input)="tracking = $event.target.checked">Object tracking</mat-slide-toggle>
     </mat-list-item>
