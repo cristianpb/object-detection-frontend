@@ -16,12 +16,14 @@ export class SidebarComponent implements OnInit, OnDestroy {
   months: selectValues[] = [];
   days: selectValues[] = [];
   hours: selectValues[] = [];
+  date: FormControl;
   subscriptionImages: Subscription;
   subscriptionParams: Subscription;
   filterGroup: FormGroup;
   params: Params = {};
 
   constructor(fb: FormBuilder, private imagesEventService: ImagesEventsService, private photosService: PhotosService) { 
+    this.date =  new FormControl(new Date())
     this.filterGroup = fb.group({
       years: new FormControl(''),
       months: new FormControl(''),
@@ -62,7 +64,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   onFilterChange() {
     Object.entries(this.filterGroup.value).map(([key, value]: [string, selectValues[]]) => {
       if (value ) {
-        this.params.page = 0
+        delete this.params.date;
+        this.date =  new FormControl(new Date())
+        this.params.page = 0;
         this.params[key] = value.map(x => x.value).join(",");
         this.imagesEventService.updateParams(this.params)
       }
@@ -72,14 +76,14 @@ export class SidebarComponent implements OnInit, OnDestroy {
     });
   }
 
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(event.value);
-    //this.events.push(`${type}: ${event.value}`);
-    // this.images = [];
-    // this.params.page = 0;
-    // this.params.date = event.value;
-    // this.getImages();
-    // console.log(event.value);
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    let selectedDate = new Intl.DateTimeFormat('fr-FR').format(event.value);
+    this.params.page = 0;
+    this.params.date = selectedDate;
+    this.imagesEventService.updateParams(this.params)
+    this.photosService.getPhotos(this.params).subscribe(result => {
+      this.imagesEventService.updateImageList(result.images);
+    });
   }
 
 }

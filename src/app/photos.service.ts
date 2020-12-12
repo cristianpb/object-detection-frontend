@@ -51,10 +51,6 @@ export class PhotosService {
 
   getPhotos(params: Params) {
     let query = new HttpParams({fromObject: params})
-    if (('date' in params) && (params.date !== undefined)) {
-      let selectedDate = new Intl.DateTimeFormat('fr-FR').format(params.date);
-      query = query.append('date', selectedDate)
-    }
     return this.http.get<ImageResponse>('api/images', {params: query});
   }
 

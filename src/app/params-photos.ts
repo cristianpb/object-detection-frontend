@@ -1,7 +1,7 @@
 export interface Params {
   [key: string]: any;
   page?: number;
-  date?: Date;
+  date?: string;
   years?: string;
   months?: string;
   hours?: string;
