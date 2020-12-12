@@ -37,13 +37,13 @@ export class PlotsComponent implements OnInit {
 
   plotImages() {
     let params = {condition: 'month'};
-    this.photosService.getImageList(params).subscribe(result => {
-      Object.keys(result).forEach((key) => {
-        this.barChartLabels = Object.entries(result[key]).sort((a, b) => +a[0] - +b[0]).map(item => this.month_map[item[0]]);
-        this.barChartData[0].data = Object.entries(result[key]).sort((a, b) => +a[0] - +b[0]).map(item => item[1]);
-        this.barChartData[0].label = key;
-      })
-    })
+    // this.photosService.getImageList(params).subscribe(result => {
+    //   Object.keys(result).forEach((key) => {
+    //     this.barChartLabels = Object.entries(result[key]).sort((a, b) => +a[0] - +b[0]).map(item => this.month_map[item[0]]);
+    //     this.barChartData[0].data = Object.entries(result[key]).sort((a, b) => +a[0] - +b[0]).map(item => item[1]);
+    //     this.barChartData[0].label = key;
+    //   })
+    // })
   }
 
   public barChartOptions: ChartOptions = {
@@ -79,10 +79,10 @@ export class PlotsComponent implements OnInit {
 
   plotPieChart() {
     let params = {condition: 'detected_object'};
-    this.photosService.getImageList(params).subscribe(result => {
-      this.pieChartLabels = Object.entries(result).sort((a, b) => -a[1] + +b[1]).map(item => item[0]);
-      this.pieChartData = Object.entries(result).sort((a, b) => -a[1] + +b[1]).map(item => item[1]);
-    })
+    //this.photosService.getImageList(params).subscribe(result => {
+    //  this.pieChartLabels = Object.entries(result).sort((a, b) => -a[1] + +b[1]).map(item => item[0]);
+    //  this.pieChartData = Object.entries(result).sort((a, b) => -a[1] + +b[1]).map(item => item[1]);
+    //})
   }
 
   public pieChartOptions: ChartOptions = {
@@ -121,10 +121,10 @@ export class PlotsComponent implements OnInit {
 
   plotLineChart() {
     let params = {condition: 'hour'};
-    this.photosService.getImageList(params).subscribe(result => {
-      this.lineChartLabels = Object.entries(result).sort((a, b) => +a[0] - +b[0]).map(item => item[0]);
-      this.lineChartData[0].data = Object.entries(result).sort((a, b) => +a[0] - +b[0]).map(item => item[1]);
-    })
+    //this.photosService.getImageList(params).subscribe(result => {
+    //  this.lineChartLabels = Object.entries(result).sort((a, b) => +a[0] - +b[0]).map(item => item[0]);
+    //  this.lineChartData[0].data = Object.entries(result).sort((a, b) => +a[0] - +b[0]).map(item => item[1]);
+    //})
   }
 
   public lineChartData: ChartDataSets[] = [{ data: [], label: 'Series A' }];
