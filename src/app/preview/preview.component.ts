@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { PhotosService } from '../photos.service';
 import { ImageItem } from '../image-item';
 import { Params } from '../params-photos';
@@ -17,9 +16,8 @@ export class PreviewComponent implements OnInit {
   showCamStream: boolean;
   showWorkersInfo: boolean;
   showPlots: boolean;
-  cardLayout: string;
 
-  constructor(private imagesEventService: ImagesEventsService, private photosService: PhotosService, breakpointObserver: BreakpointObserver) {
+  constructor(private imagesEventService: ImagesEventsService, private photosService: PhotosService) {
     imagesEventService.imageChanged$.subscribe(
       images => {
         this.images = images
@@ -28,16 +26,6 @@ export class PreviewComponent implements OnInit {
     imagesEventService.paramsChanged$.subscribe(
       params => {
         this.params = params
-    });
-    breakpointObserver.observe([
-      Breakpoints.XSmall,
-      Breakpoints.Large
-    ]).subscribe(result => {
-      if (result.breakpoints[Breakpoints.XSmall]) {
-        this.cardLayout = 'mobile';
-      } else {
-        this.cardLayout = 'desktop';
-      }
     });
   }
 
