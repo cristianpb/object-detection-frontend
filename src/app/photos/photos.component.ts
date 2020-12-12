@@ -1,24 +1,31 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnDestroy, Input } from '@angular/core';
 import { PhotosService } from '../photos.service';
 import { SingleComponent } from '../single/single.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageItem } from '../image-item';
+import { Params } from '../params-photos'
+import { ImagesEventsService } from '../images-events.service'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-photos',
   templateUrl: './photos.component.html',
   styleUrls: ['./photos.component.scss']
 })
-export class PhotosComponent implements OnInit {
+export class PhotosComponent implements OnDestroy {
   @Input() images: ImageItem[];
-  @Input() params: any;
-  // const params = {page: this.page, date: this.date};
-  //@Input() page: any;
-  //@Input() date: any;
+  @Input() params: Params;
+  subscriptionParams: Subscription;
 
-  constructor(private photosService: PhotosService, public dialog: MatDialog) { }
+  constructor(private imagesEventService: ImagesEventsService, private photosService: PhotosService, public dialog: MatDialog) {
+    this.subscriptionParams = imagesEventService.paramsChanged$.subscribe(
+      params => {
+        this.params = params
+    });
+  }
 
-  ngOnInit() {
+  ngOnDestroy() {
+    this.subscriptionParams.unsubscribe();
   }
 
   getImages() {
@@ -53,10 +60,9 @@ export class PhotosComponent implements OnInit {
   onScroll() {
     console.log('scrolled!!');
     console.log('size', this.images.length);
-    //this.page++;
     this.params.page++;
+    this.imagesEventService.updateParams(this.params)
     this.getImages();
   }
-
 
 }

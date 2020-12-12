@@ -2,12 +2,14 @@ export interface Params {
   [key: string]: any;
   page?: number;
   date?: Date;
-  month?: string;
-  hour?: string;
+  years?: string;
+  months?: string;
+  hours?: string;
+  minutes?: string;
   detected_object?: string;
 }
 
-export type ConditionsType = 'years'|'months'|'hours'|'detected_objects'|'tracking_objects';
+export type ConditionsType = 'years'|'months'|'days'|'hours'|'minutes'|'detected_objects'|'tracking_objects';
 
 export interface Conditions {
   [key: string]: ConditionsType;

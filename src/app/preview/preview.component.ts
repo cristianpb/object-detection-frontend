@@ -25,6 +25,10 @@ export class PreviewComponent implements OnInit {
         this.images = images
       }
     )
+    imagesEventService.paramsChanged$.subscribe(
+      params => {
+        this.params = params
+    });
     breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Large
@@ -39,15 +43,16 @@ export class PreviewComponent implements OnInit {
 
   ngOnInit() {
     this.params.page = 0
+    this.imagesEventService.updateParams(this.params)
     this.getImages();
   }
 
-  onPlotClick(params) {
-    this.images = [];
-    this.params = params;
-    this.params.page = 0
-    this.getImages()
-  }
+  // onPlotClick(params) {
+  //   this.images = [];
+  //   this.params = params;
+  //   this.params.page = 0
+  //   this.getImages()
+  // }
 
   toggleWorkersInfo() {
     this.showWorkersInfo = !this.showWorkersInfo;
