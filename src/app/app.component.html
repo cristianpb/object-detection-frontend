@@ -1,38 +1,7 @@
 <app-navbar [sidenav]="sidenav"></app-navbar>
 <mat-sidenav-container class="drawer-container">
   <mat-sidenav #sidenav mode="side">
-      <mat-nav-list>
-        <mat-list-item>
-          <button mat-button>
-            <mat-slide-toggle (click)="toggleCam()">Cam</mat-slide-toggle>
-          </button>
-        </mat-list-item>
-        <mat-list-item>
-          <button mat-button>
-            <mat-slide-toggle (click)="showPlots=!showPlots">Stats</mat-slide-toggle>
-          </button>
-        </mat-list-item>
-        <mat-list-item>
-          <button mat-button>
-            <mat-slide-toggle (click)="toggleWorkersInfo()">Workers</mat-slide-toggle>
-          </button>
-        </mat-list-item>
-        <mat-list-item>
-          <button (click)="launchTask()" mat-button>Object tracking
-          </button>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <br>
-        <mat-list-item>
-          <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Choose date"
-                                                     (dateInput)="addEvent('input', $event)">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </mat-list-item>
-      </mat-nav-list>
-
+    <app-sidebar></app-sidebar>
   </mat-sidenav>
   <mat-sidenav-content class="my-sidenav-content">
 

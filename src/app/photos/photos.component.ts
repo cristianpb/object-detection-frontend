@@ -23,7 +23,7 @@ export class PhotosComponent implements OnInit {
 
   getImages() {
     this.photosService.getPhotos(this.params).subscribe(result => {
-      result.forEach(item => {
+      result.images.forEach(item => {
         // console.log(item);
         this.images.push(item);
       });

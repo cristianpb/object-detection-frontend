@@ -25,14 +25,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ImagenamePipe } from './imagename.pipe';
 import { ImageDecodePipe } from './image-decode.pipe';
 import { ChartsModule } from 'ng2-charts';
+import { MatSelectModule } from '@angular/material/select';
 import { PlotsComponent } from './plots/plots.component';
 import { PhotosComponent } from './photos/photos.component';
 import { CameraComponent } from './camera/camera.component';
 import { WorkersComponent } from './workers/workers.component';
 import { IconService } from '@visurel/iconify-angular';
+import { ImagesEventsService } from './images-events.service'
 import { IconModule } from '@visurel/iconify-angular';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CamerasComponent } from './cameras/cameras.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
@@ -48,6 +51,7 @@ import { CamerasComponent } from './cameras/cameras.component';
     WorkersComponent,
     NavbarComponent,
     CamerasComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,10 +75,11 @@ import { CamerasComponent } from './cameras/cameras.component';
     MatGridListModule,
     FlexLayoutModule,
     ChartsModule,
+    MatSelectModule,
     InfiniteScrollModule,
     IconModule
   ],
-  providers: [IconService],
+  providers: [IconService, ImagesEventsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

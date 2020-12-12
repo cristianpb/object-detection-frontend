@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Worker } from './worker';
 import { Tasks } from './tasks';
-import { Params } from './params-photos';
-import { ImageItem } from './image-item';
+import { Params, Conditions } from './params-photos';
+import { ImageResponse } from './image-item';
 import { Config } from './types/config';
 
 @Injectable({
@@ -44,27 +44,18 @@ export class PhotosService {
     return this.http.get<any>(`api/single_image`, {params: query});
   }
 
-  getImageList(params) {
-    let query = new HttpParams();
-    Object.entries(params).forEach((item: any) => {
-      query = query.append(item[0], item[1]);
-    });
+  getImageList(params: Conditions) {
+    let query = new HttpParams({fromObject: params})
     return this.http.get<any>(`api/list_files`, {params: query})
   }
 
   getPhotos(params: Params) {
-    let query = new HttpParams();
-    let times = new Array('year', 'month', 'day', 'hour', 'minutes', 'page', 'detected_object');
-    times.forEach((item) => {
-      if (item in params) {
-        query = query.append(item, params[item]);
-      }
-    })
+    let query = new HttpParams({fromObject: params})
     if (('date' in params) && (params.date !== undefined)) {
       let selectedDate = new Intl.DateTimeFormat('fr-FR').format(params.date);
       query = query.append('date', selectedDate)
     }
-    return this.http.get<ImageItem[]>('api/images', {params: query});
+    return this.http.get<ImageResponse>('api/images', {params: query});
   }
 
   getConfig() {

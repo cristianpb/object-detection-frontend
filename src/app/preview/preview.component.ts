@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { PhotosService } from '../photos.service';
 import { ImageItem } from '../image-item';
 import { Params } from '../params-photos';
+import { ImagesEventsService } from '../images-events.service';
 
 @Component({
   selector: 'app-preview',
@@ -11,7 +11,6 @@ import { Params } from '../params-photos';
   styleUrls: ['./preview.component.scss']
 })
 export class PreviewComponent implements OnInit {
-  events: string[] = [];
   images: ImageItem[] = [];
   params: Params = {};
   showCam: boolean;
@@ -20,7 +19,12 @@ export class PreviewComponent implements OnInit {
   showPlots: boolean;
   cardLayout: string;
 
-  constructor(private photosService: PhotosService, breakpointObserver: BreakpointObserver) {
+  constructor(private imagesEventService: ImagesEventsService, private photosService: PhotosService, breakpointObserver: BreakpointObserver) {
+    imagesEventService.imageChanged$.subscribe(
+      images => {
+        this.images = images
+      }
+    )
     breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Large
@@ -74,20 +78,11 @@ export class PreviewComponent implements OnInit {
 
   getImages() {
     this.photosService.getPhotos(this.params).subscribe(result => {
-      result.forEach(item => {
+      result.images.forEach(item => {
         // console.log(item);
         this.images.push(item);
       });
     });
-  }
-
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.events.push(`${type}: ${event.value}`);
-    this.images = [];
-    this.params.page = 0;
-    this.params.date = event.value;
-    this.getImages();
-    console.log(event.value);
   }
 
 }

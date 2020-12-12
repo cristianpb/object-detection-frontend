@@ -6,3 +6,9 @@ export class ImageItem {
   hour: string;
   minutes: string;
 };
+
+export interface ImageResponse {
+  images: ImageItem[];
+  page: number;
+  page_size: number
+}
