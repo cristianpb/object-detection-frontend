@@ -12,10 +12,6 @@ import { ImagesEventsService } from '../images-events.service';
 export class PreviewComponent implements OnInit {
   images: ImageItem[] = [];
   params: Params = {};
-  showCam: boolean;
-  showCamStream: boolean;
-  showWorkersInfo: boolean;
-  showPlots: boolean;
 
   constructor(private imagesEventService: ImagesEventsService, private photosService: PhotosService) {
     imagesEventService.imageChanged$.subscribe(
@@ -41,33 +37,6 @@ export class PreviewComponent implements OnInit {
   //   this.params.page = 0
   //   this.getImages()
   // }
-
-  toggleWorkersInfo() {
-    this.showWorkersInfo = !this.showWorkersInfo;
-  }
-
-  launchTask() {
-    this.photosService.launchTracking().subscribe(data => {
-      console.log(data);
-    });
-  }
-
-  toggleCam() {
-    if (this.showCam === true) {
-      this.showCam = false;
-    } else {
-      this.showCam = true;
-    }
-  }
-
-  toggleCamStream() {
-    if (this.showCamStream === true) {
-      this.showCamStream = false;
-    } else {
-      this.showCamStream = true;
-    }
-  }
-
 
   getImages() {
     this.photosService.getPhotos(this.params).subscribe(result => {

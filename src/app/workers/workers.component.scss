@@ -1,3 +1,23 @@
 .example-card {
-  max-width: 400px;
+    max-width: 400px;
+}
+
+.mat-table {
+    display: table;
+    width: 100%;
+    padding: 1rem;
+
+    > .mat-header-row, > .mat-row {
+        display: table-row;
+        padding: 0;
+        border: none;
+
+        > .mat-header-cell, > .mat-cell {
+            display: table-cell;
+            height: 48px;
+            vertical-align: middle;
+
+            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        }
+    }
 }

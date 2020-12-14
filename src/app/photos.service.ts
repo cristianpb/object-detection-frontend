@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Worker } from './worker';
-import { Tasks } from './tasks';
 import { Params, Conditions } from './params-photos';
 import { ImageResponse } from './image-item';
 import { Config } from './types/config';
@@ -13,45 +11,38 @@ export class PhotosService {
 
   constructor(private http: HttpClient) { }
 
-  deleteImage(img) {
+  deleteImage(img: string) {
     const formData: FormData = new FormData();
     formData.append('filename', img);
     return this.http.post(`api/delete`, formData);
   }
 
-  getFlowerWorkers() {
-    return this.http.get<Worker>(`flower/api/workers`);
+  taskStart(options: any) {
+    let params = new HttpParams({fromObject: options})
+    return this.http.get<any>(`api/task/start`, {params});
   }
 
-  getFlowerTasks() {
-    return this.http.get<Tasks>(`flower/api/tasks?limit=5`);
+  taskStop(task_id: string) {
+    return this.http.get<any>(`api/task/kill/${task_id}`);
   }
 
-  launchTracking() {
-    return this.http.get<any>(`api/task/launch`);
-  }
-
-  launchContinousDetection() {
-    return this.http.get<any>(`api/beat/launch`);
-  }
-
-  killTracking(task_id: string) {
+  taskStatus(task_id: string) {
     return this.http.get<any>(`api/task/kill/${task_id}`);
   }
 
   getSingleImage(options: any) {
-    let query = new HttpParams({fromObject:options})
-    return this.http.get<any>(`api/single_image`, {params: query});
+    let params = new HttpParams({fromObject:options})
+    return this.http.get<any>(`api/single_image`, {params});
   }
 
-  getImageList(params: Conditions) {
-    let query = new HttpParams({fromObject: params})
-    return this.http.get<any>(`api/list_files`, {params: query})
+  getImageList(options: Conditions) {
+    let params = new HttpParams({fromObject: options})
+    return this.http.get<any>(`api/list_files`, {params})
   }
 
-  getPhotos(params: Params) {
-    let query = new HttpParams({fromObject: params})
-    return this.http.get<ImageResponse>('api/images', {params: query});
+  getPhotos(options: Params) {
+    let params = new HttpParams({fromObject: options})
+    return this.http.get<ImageResponse>('api/images', {params});
   }
 
   getConfig() {
