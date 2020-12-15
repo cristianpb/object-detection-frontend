@@ -1,8 +1,7 @@
 interface CameraConfig {
-  source: number;
-  type: string;
+  name: string;
   rotation: number;
-  language: string;
+  source: number;
 }
 
 export interface Config {

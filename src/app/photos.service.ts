@@ -22,12 +22,17 @@ export class PhotosService {
     return this.http.get<any>(`api/task/start`, {params});
   }
 
-  taskStop(task_id: string) {
-    return this.http.get<any>(`api/task/kill/${task_id}`);
+  taskStop(options: any) {
+    let params = new HttpParams({fromObject: options})
+    return this.http.get<any>(`api/task/stop`, {params});
   }
 
   taskStatus(task_id: string) {
-    return this.http.get<any>(`api/task/kill/${task_id}`);
+    return this.http.get<any>(`api/task/status/${task_id}`);
+  }
+
+  taskJobs() {
+    return this.http.get<any>(`api/task/jobs`);
   }
 
   getSingleImage(options: any) {
