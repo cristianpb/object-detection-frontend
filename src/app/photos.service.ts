@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Params, Conditions } from './params-photos';
 import { ImageResponse } from './image-item';
-import { Config } from './types/config';
+import { Config, JobsTable } from './types/config';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +32,7 @@ export class PhotosService {
   }
 
   taskJobs() {
-    return this.http.get<any>(`api/task/jobs`);
+    return this.http.get<JobsTable>(`api/task/jobs`);
   }
 
   getSingleImage(options: any) {

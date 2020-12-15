@@ -15,12 +15,42 @@
       </mat-select>
     </mat-form-field>
   </mat-list-item>
+  <mat-list-item>
   <div class="text-center">
     <button mat-button type="submit" [disabled]="!filterGroup.valid" (click)="onSubmit()">Start</button>
-  </div>
-  <mat-list-item>
-    <div class="text-center">
-      <button mat-button [disabled]="!filterGroup.valid" (click)="stopJob()">Stop</button>
+    <button mat-button [disabled]="!filterGroup.valid" (click)="stopJob()">Stop</button>
     </div>
   </mat-list-item>
 </form>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="camera">
+    <th mat-header-cell *matHeaderCellDef> Camera </th>
+    <td mat-cell *matCellDef="let element"> {{element.camera}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="running">
+    <th mat-header-cell *matHeaderCellDef> Running </th>
+    <td mat-cell *matCellDef="let element"> <button mat-button (click)="console.log(element.task)"> {{element.running}}</button> </td>
+  </ng-container>
+
+  <ng-container matColumnDef="start">
+    <th mat-header-cell *matHeaderCellDef> Start </th>
+    <td mat-cell *matCellDef="let element"> <button mat-button (click)="console.log(element.task)"> {{element.start}}</button> </td>
+  </ng-container>
+
+  <ng-container matColumnDef="end">
+    <th mat-header-cell *matHeaderCellDef> End </th>
+    <td mat-cell *matCellDef="let element"> <button *ngIf="element.end" mat-button (click)="console.log(element.task)"> {{element.end}}</button> </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PhotosService } from '../photos.service';
 import { Config } from '../types/config';
+import { MatTable, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-workers',
@@ -9,11 +10,15 @@ import { Config } from '../types/config';
   styleUrls: ['./workers.component.scss']
 })
 export class WorkersComponent implements OnInit {
+  @ViewChild(MatTable,  { static: false }) table: MatTable<any>;
+  displayedColumns: string[] = ['name', 'camera', 'running', 'start', 'end'];
   cameras: string[] = [];
   tasks: string[] = [];
   filterGroup: FormGroup;
   config: Config;
-  jobs: any;
+  
+
+  private dataSource = new MatTableDataSource();
 
   constructor(fb: FormBuilder, private photosService: PhotosService) {
     this.filterGroup = fb.group({
@@ -38,18 +43,21 @@ export class WorkersComponent implements OnInit {
   onSubmit() {
     this.photosService.taskStart({camera: this.filterGroup.value.cameras, task: this.filterGroup.value.tasks}).subscribe((data: any) => {
       console.log(data);
+      this.fetchJobs()
     })
   }
 
   stopJob() {
     this.photosService.taskStop({camera: this.filterGroup.value.cameras, task: this.filterGroup.value.tasks}).subscribe((data: any) => {
       console.log(data);
+      this.fetchJobs()
     })
   }
 
   fetchJobs() {
     this.photosService.taskJobs().subscribe(data => {
-      this.jobs = data
+      this.dataSource.data = data.jobs
+      this.table.renderRows();
     })
   }
 
