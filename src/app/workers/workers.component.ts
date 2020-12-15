@@ -16,9 +16,7 @@ export class WorkersComponent implements OnInit {
   tasks: string[] = [];
   filterGroup: FormGroup;
   config: Config;
-  
-
-  private dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource();
 
   constructor(fb: FormBuilder, private photosService: PhotosService) {
     this.filterGroup = fb.group({
