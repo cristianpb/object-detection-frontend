@@ -5,7 +5,7 @@ on: [push]
 
 jobs:
   nodeversion-test:
-    name: Test node version
+    name: 👷 Test node version
     runs-on: ubuntu-latest
 
     strategy:
@@ -13,12 +13,35 @@ jobs:
         node-version: [10.x, 12.x]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: install dependencies
+      - name: Install dependencies
         run: npm install
       - name: build
         run: npm run prod
+
+  publish:
+    name: 🚀 Publish
+    needs: nodeversion-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: Install dependencies
+        run: npm install
+      - name: 🏗 Build html
+        run: npm run prod
+      - name: 🚀 Deploy to GitHub pages
+        if: github.ref == 'refs/heads/master'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: builds
+          publish_dir: ./dist
+          force_orphan: true
