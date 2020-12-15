@@ -47,8 +47,8 @@ export class WorkersComponent implements OnInit {
     })
   }
 
-  stopJob() {
-    this.photosService.taskStop({camera: this.filterGroup.value.cameras, task: this.filterGroup.value.tasks}).subscribe((data: any) => {
+  stopJob(camera=this.filterGroup.value.cameras, task=this.filterGroup.value.tasks) {
+    this.photosService.taskStop({camera, task}).subscribe((data: any) => {
       console.log(data);
       this.fetchJobs()
     })

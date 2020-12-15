@@ -1,3 +1,4 @@
+<br>
 <form [formGroup]="filterGroup">
   <mat-list-item>
     <mat-form-field appearance="fill">
@@ -47,7 +48,12 @@
 
   <ng-container matColumnDef="end">
     <th mat-header-cell *matHeaderCellDef> End </th>
-    <td mat-cell *matCellDef="let element"> <button *ngIf="element.end" mat-button (click)="console.log(element.task)"> {{element.end}}</button> </td>
+    <td mat-cell *matCellDef="let element">
+      <button *ngIf="element.end; else elseBlock" mat-button > {{element.end}}</button> 
+      <ng-template #elseBlock><button (click)="stopJob(element.camera, element.task)" mat-button >Stop</button> 
+      </ng-template>
+    </td>
+    
   </ng-container>
 
 
