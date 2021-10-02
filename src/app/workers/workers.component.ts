@@ -10,7 +10,7 @@ import { MatTable, MatTableDataSource } from '@angular/material';
   styleUrls: ['./workers.component.scss']
 })
 export class WorkersComponent implements OnInit {
-  @ViewChild(MatTable,  { static: false }) table: MatTable<any>;
+  @ViewChild(MatTable) table: MatTable<any>;
   displayedColumns: string[] = ['name', 'camera', 'running', 'start', 'end'];
   cameras: string[] = [];
   tasks: string[] = [];
