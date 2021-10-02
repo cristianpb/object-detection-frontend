@@ -11,7 +11,6 @@ export class CameraComponent implements OnInit {
   @Input() cameraName: string;
   timer: any;
   singleImage: any;
-  fps: number;
   tracking: boolean;
   detection: boolean;
   formGroup: FormGroup;
@@ -20,17 +19,16 @@ export class CameraComponent implements OnInit {
     this.formGroup = fb.group({
       tracking: new FormControl(false),
       detection: new FormControl(false),
-      framesPerSecond: new FormControl(3, Validators.min(0))
+      framesPerSecond: new FormControl(1, Validators.min(0))
     });
   }
 
   ngOnInit() {
     this.detection = false;
-    this.fps = 3;
     this.tracking = false;
     this.timer = setInterval(() => {
       this.getSingleImage({cameraName: this.cameraName, ...this.formGroup.value})
-    }, Math.floor(1000/this.fps));
+    }, Math.floor(1000/this.formGroup.value.framesPerSecond));
   }
 
   ngOnDestroy() {
@@ -41,6 +39,14 @@ export class CameraComponent implements OnInit {
     this.photosService.getSingleImage(options).subscribe(data => {
       this.singleImage = data
     });
+  }
+
+  changeFps(value: any) {
+    clearInterval(this.timer);
+    console.log("change to ", value, "and", this.formGroup.value.framesPerSecond);
+    this.timer = setInterval(() => {
+      this.getSingleImage({cameraName: this.cameraName, ...this.formGroup.value})
+    }, Math.floor(1000/Number(this.formGroup.value.framesPerSecond)));
   }
 
 }
