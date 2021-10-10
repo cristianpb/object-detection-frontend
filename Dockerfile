@@ -16,7 +16,7 @@ RUN npm install
 
 COPY tsconfig.json ./
 COPY tslint.json ./
-COPY browserslist ./
+COPY .browserslistrc ./
 COPY angular.json ./
 
 # Expose the listening port of your app
